@@ -17,6 +17,7 @@ title: Luzhiled's memo
 email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
   うっしっしｗ
+auther: ei13333
 baseurl: "/luzhiled" # the subpath of your site, e.g. /blog
 url: "https://ei1333.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: ei13333
@@ -27,6 +28,7 @@ markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-seo-tag
 timezone: Asia/Tokyo
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
