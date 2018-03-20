@@ -5,5 +5,14 @@
 layout: home
 ---
 
-
 ぽよぽよぷりん
+
+{% assign mydocs = site.snippets | group_by: 'category' %}
+{% for cat in mydocs %}
+## {{ cat.name | capitalize }}
+  {% assign items = cat.items | sort: 'order' %}
+  {% for item in items %}
+  * [{{item.title}}]({{ item.url }})
+  {% endfor %}
+{% endfor %}
+

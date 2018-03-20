@@ -14,7 +14,6 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: Luzhiled's memo
-email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
   うっしっしｗ
 auther: ei13333
@@ -26,6 +25,7 @@ github_username:  ei1333
 # Build settings
 markdown: kramdown
 theme: minima
+lang: ja
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
@@ -41,3 +41,9 @@ timezone: Asia/Tokyo
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+permalink: none
+
+collections:
+  snippets:
+    output: true
