@@ -12,7 +12,7 @@ layout: home
 ## {{ cat.name | capitalize }}
   {% assign items = cat.items | sort: 'order' %}
   {% for item in items %}
-  * [{{item.title}}]({{ item.url }})
+  * [{{item.title}}]({{ item.url | relative_url }})
   {% endfor %}
 {% endfor %}
 
