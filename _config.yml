@@ -21,26 +21,14 @@ baseurl: "/luzhiled" # the subpath of your site, e.g. /blog
 url: "https://ei1333.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: ei13333
 github_username:  ei1333
-
+theme: minima
 # Build settings
 markdown: kramdown
-theme: minima
 lang: ja
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
 timezone: Asia/Tokyo
-# Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
 
 permalink: none
 

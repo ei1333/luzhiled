@@ -1,0 +1,22 @@
+pre, code {
+  background-color: #FAFAFA;
+}
+.div-sample-copy {
+    position: relative;
+    display: block;
+}
+.btn-sample-copy
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    padding: 0.25em 1em;
+    font-size: 12px;
+    color: #767676;
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0 4px 0 4px;
+}
+

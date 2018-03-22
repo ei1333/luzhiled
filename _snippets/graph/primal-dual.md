@@ -3,7 +3,6 @@ layout: post
 title: 最小費用流(Primal-Dual)
 date: 2018-03-22
 author: ei1333
-math: true
 category: グラフ
 ---
 

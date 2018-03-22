@@ -3,7 +3,6 @@ layout: post
 title: セグメント木(Segment-Tree)
 date: 2018-03-18
 author: ei1333
-math: true
 category: データ構造
 ---
 
