@@ -42,3 +42,10 @@ h2 {
     border: 1px solid #ccc;
     border-radius: 0 4px 0 4px;
 }
+
+a:link {
+  text-decoration: underline;
+}
+a:hover {
+  background: #DDDDDD;
+}
