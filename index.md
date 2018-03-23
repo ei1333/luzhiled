@@ -9,10 +9,10 @@ layout: home
 
 {% assign mydocs = site.snippets | group_by: 'category' %}
 {% for cat in mydocs %}
-## {{ cat.name | capitalize }}
+## {{ cat.name }}
   {% assign items = cat.items | sort: 'order' %}
   {% for item in items %}
-  * [{{item.title}}]({{ item.url | relative_url }})
+* [{{item.title}}]({{ item.url | relative_url }})
   {% endfor %}
 {% endfor %}
 

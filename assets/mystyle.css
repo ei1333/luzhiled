@@ -1,6 +1,29 @@
+body {
+  line-height: 140%;
+}
+
 pre, code {
+  font-family: source-code-pro;
   background-color: #FAFAFA;
 }
+
+h2 {
+  padding: 0.3em 0.3em 0.3em 0.5em;
+  border-top: 1px;
+  border-bottom: 1px;
+  border-left: 6px;
+  border-right: 1px;
+  border-color: #666666;
+  border-style: solid;
+  margin-top: 1em;
+}
+
+.footer-heading {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
 .div-sample-copy {
     position: relative;
     display: block;
@@ -19,4 +42,3 @@ pre, code {
     border: 1px solid #ccc;
     border-radius: 0 4px 0 4px;
 }
-
