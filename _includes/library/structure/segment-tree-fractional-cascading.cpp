@@ -1,11 +1,9 @@
-struct SegmentTreeFractionalCascading
-{
+struct SegmentTreeFractionalCascading {
   vector< vector< int > > seg;
   vector< vector< int > > LL, RR;
   int sz;
 
-  SegmentTreeFractionalCascading(vector< int > &array)
-  {
+  SegmentTreeFractionalCascading(vector< int > &array) {
     sz = 1;
     while(sz < array.size()) sz <<= 1;
     seg.resize(2 * sz - 1);
@@ -30,8 +28,7 @@ struct SegmentTreeFractionalCascading
     }
   }
 
-  int query(int a, int b, int lower, int upper, int k, int l, int r)
-  {
+  int query(int a, int b, int lower, int upper, int k, int l, int r) {
     if(a >= r || b <= l) {
       return (0);
     } else if(a <= l && r <= b) {
@@ -41,8 +38,7 @@ struct SegmentTreeFractionalCascading
     }
   }
 
-  int query(int a, int b, int l, int r)
-  {
+  int query(int a, int b, int l, int r) {
     l = lower_bound(begin(seg[0]), end(seg[0]), l) - begin(seg[0]);
     r = lower_bound(begin(seg[0]), end(seg[0]), r) - begin(seg[0]);
     return (query(a, b, l, r, 0, 0, sz));
