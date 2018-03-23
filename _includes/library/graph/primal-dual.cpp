@@ -1,4 +1,4 @@
-te< typename flow_t, typename cost_t >
+template< typename flow_t, typename cost_t >
 struct PrimalDual {
   const cost_t INF;
 
