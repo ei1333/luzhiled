@@ -7,7 +7,7 @@ layout: default
 
   <header class="post-header">
     <p>
-      <a href="{{ site.url }}">TOP</a> &gt; <span>{{ page.category }}</span>
+      <a href="{{ "/" | relative_url }}">TOP</a> &gt; <span>{{ page.category }}</span>
         {%- if page.tags.size > 0 -%} 
         {%- for tag in page.tags -%}
            <span style="color: gray;"> {{tag}}</span>
@@ -37,5 +37,5 @@ layout: default
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
 </article>
 
-<p><a href="{{ site.url }}">トップページに戻る</a></p>
+<p><a href="{{ "/" | relative_url }}">トップページに戻る</a></p>
 
