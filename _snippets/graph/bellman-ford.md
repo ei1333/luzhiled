@@ -14,7 +14,7 @@ tags: 単一始点最短路
 
 ## 実装例
 
-* bellmanford($edges$, $V$, $s$):= $V$ 頂点の重み付き辺集合 $edges$ 上で、頂点 $s$ から全点間の最短コストを求める。到達できないとき, 型の最大値が格納される。負閉路を検出した時空列を返す。
+* bellman_ford($edges$, $V$, $s$):= $V$ 頂点の重み付き辺集合 $edges$ 上で、頂点 $s$ から全点間の最短コストを求める。到達できないとき, 型の最大値が格納される。負閉路を検出した時空列を返す。
 
 {% include read.html  code="graph/bellman-ford.cpp" %}
 
