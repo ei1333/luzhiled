@@ -1,17 +1,15 @@
 struct LongestCommonPrefixArray {
+  const SuffixArray &SA;
   vector< int > LCP, rank;
 
-  LongestCommonPrefixArray(SuffixArray &SA) {
-    string &s = SA.s;
-    rank.resize(s.size());
-    for(int i = 0; i < s.size(); i++) {
+  LongestCommonPrefixArray(const SuffixArray &SA) : SA(SA), LCP(SA.size()) {
+    rank.resize(SA.size());
+    for(int i = 0; i < SA.size(); i++) {
       rank[SA[i]] = i;
     }
-    LCP.resize(s.size());
-    LCP[0] = 0;
-    for(int i = 0, h = 0; i < s.size(); i++) {
-      if(rank[i] + 1 < s.size()) {
-        for(int j = SA[rank[i] + 1]; max(i, j) + h < s.length() && s[i + h] == s[j + h]; ++h);
+    for(int i = 0, h = 0; i < SA.size(); i++) {
+      if(rank[i] + 1 < SA.size()) {
+        for(int j = SA[rank[i] + 1]; max(i, j) + h < SA.size() && SA.s[i + h] == SA.s[j + h]; ++h);
         LCP[rank[i] + 1] = h;
         if(h > 0) --h;
       }
@@ -19,10 +17,16 @@ struct LongestCommonPrefixArray {
   }
 
   int operator[](int k) const {
-    return (LCP[k]);
+    return LCP[k];
   }
 
-  int size() const {
-    return (LCP.size());
+  size_t size() const {
+    return LCP.size();
+  }
+
+  void output() {
+    for(int i = 0; i < size(); i++) {
+      cout << i << ": " << LCP[i] << " " << SA.s.substr(SA[i]) << endl;
+    }
   }
 };
