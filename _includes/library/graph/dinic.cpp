@@ -1,21 +1,20 @@
-template< typename cost_t >
+template< typename flow_t >
 struct Dinic {
-  const cost_t INF;
+  const flow_t INF;
 
   struct edge {
     int to;
-    cost_t cap;
+    flow_t cap;
     int rev;
     bool isrev;
   };
 
   vector< vector< edge > > graph;
-  vector< cost_t > min_cost;
-  vector< int > iter;
+  vector< int > min_cost, iter;
 
-  Dinic(int V) : INF(numeric_limits< cost_t >::max()), graph(V) {}
+  Dinic(int V) : INF(numeric_limits< flow_t >::max()), graph(V) {}
 
-  void add_edge(int from, int to, cost_t cap) {
+  void add_edge(int from, int to, flow_t cap) {
     graph[from].emplace_back((edge) {to, cap, (int) graph[to].size(), false});
     graph[to].emplace_back((edge) {from, 0, (int) graph[from].size() - 1, true});
   }
@@ -25,7 +24,7 @@ struct Dinic {
     queue< int > que;
     min_cost[s] = 0;
     que.push(s);
-    while(!que.empty()) {
+    while(!que.empty() && min_cost[t] == -1) {
       int p = que.front();
       que.pop();
       for(auto &e : graph[p]) {
@@ -38,12 +37,12 @@ struct Dinic {
     return min_cost[t] != -1;
   }
 
-  cost_t dfs(int idx, const int t, cost_t flow) {
-    if(idx == t) return (flow);
+  flow_t dfs(int idx, const int t, flow_t flow) {
+    if(idx == t) return flow;
     for(int &i = iter[idx]; i < graph[idx].size(); i++) {
       edge &e = graph[idx][i];
       if(e.cap > 0 && min_cost[idx] < min_cost[e.to]) {
-        cost_t d = dfs(e.to, t, min(flow, e.cap));
+        flow_t d = dfs(e.to, t, min(flow, e.cap));
         if(d > 0) {
           e.cap -= d;
           graph[e.to][e.rev].cap += d;
@@ -54,14 +53,12 @@ struct Dinic {
     return 0;
   }
 
-  cost_t max_flow(int s, int t) {
-    cost_t flow = 0;
+  flow_t max_flow(int s, int t) {
+    flow_t flow = 0;
     while(bfs(s, t)) {
       iter.assign(graph.size(), 0);
-      cost_t f = 0;
-      while((f = dfs(s, t, INF)) > 0) {
-        flow += f;
-      }
+      flow_t f = 0;
+      while((f = dfs(s, t, INF)) > 0) flow += f;
     }
     return flow;
   }
