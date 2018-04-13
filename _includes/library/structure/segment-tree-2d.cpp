@@ -1,23 +1,31 @@
-#include <ext/pb_ds/assoc_container.hpp>
-using namespace __gnu_pbds;
+template< typename structure_t, typename get_t, typename update_t >
 struct SegmentTree2D {
-  int sz;
-  vector< tree< int, null_type, less< int >, rb_tree_tag, tree_order_statistics_node_update > > seg;
+  using merge_f = function< get_t(get_t, get_t) >;
+  using range_get_f = function< get_t(structure_t &, int, int) >;
+  using update_f = function< get_t(structure_t &, int, update_t) >;
 
-  SegmentTree2D(int n)
-  {
+  int sz;
+  vector< structure_t > seg;
+  const merge_f &f;
+  const range_get_f &g;
+  const update_f &h;
+  const get_t &identity;
+
+  SegmentTree2D(int n, const merge_f &f, const range_get_f &g, const update_f &h, const get_t &identity)
+      : f(f), g(g), h(h), identity(identity) {
     sz = 1;
     while(sz < n) sz <<= 1;
     seg.resize(2 * sz - 1);
   }
 
-  int query(int a, int b, int lower, int upper, int k, int l, int r) {
+  get_t query(int a, int b, int lower, int upper, int k, int l, int r) {
     if(r <= a || b <= l) {
-      return (0);
+      return identity;
     } else if(a <= l && r <= b) {
-      return (seg[k].order_of_key(upper) - seg[k].order_of_key(lower));
+      return g(seg[k], lower, upper);
     } else {
-      return (query(a, b, lower, upper, 2 * k + 1, l, (l + r) >> 1) + query(a, b, lower, upper, 2 * k + 2, (l + r) >> 1, r));
+      return f(query(a, b, lower, upper, 2 * k + 1, l, (l + r) >> 1),
+               query(a, b, lower, upper, 2 * k + 2, (l + r) >> 1, r));
     }
   }
 
@@ -25,14 +33,12 @@ struct SegmentTree2D {
     return (query(a, b, l, r, 0, 0, sz));
   }
 
-  void update(int k, int x, bool type) {
-    k += sz - 1;
-    if(type) seg[k].insert(x);
-    else seg[k].erase(x);
-    while(k > 0) {
-      k = (k - 1) >> 1;
-      if(type) seg[k].insert(x);
-      else seg[k].erase(x);
+  void update(int x, int y, update_t z) {
+    x += sz - 1;
+    h(seg[x], y, z);
+    while(x > 0) {
+      x = (x - 1) >> 1;
+      h(seg[x], y, z);
     }
   }
 };
