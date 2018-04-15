@@ -20,7 +20,7 @@ tags: 単一始点最短路
 
 ## 検証
 
-[AOJ DSL_1_B 単一始点最短経路（負の重みをもつ辺を含む](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_B&lang=jp)
+[AOJ GRL_1_B 単一始点最短経路（負の重みをもつ辺を含む](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_B&lang=jp)
 {% include read.html code="graph/verify/aoj-grl-1-b.cpp" %}
 
 ## 応用 1: 牛ゲー

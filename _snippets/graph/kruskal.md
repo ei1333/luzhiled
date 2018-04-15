@@ -22,5 +22,5 @@ tags: 最小全域木
 
 ## 検証
 
-[AOJ DSL_2_A 最小全域木](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=jp)
+[AOJ GRL_2_A 最小全域木](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=jp)
 {% include read.html code="graph/verify/aoj-grl-2-a-2.cpp" %}

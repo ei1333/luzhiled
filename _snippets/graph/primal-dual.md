@@ -22,5 +22,5 @@ tags: 最小費用流
 
 ## 検証
 
-[AOJ DSL_6_B 最小費用流](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_6_B&lang=jp)
+[AOJ GRL_6_B 最小費用流](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_6_B&lang=jp)
 {% include read.html code="graph/verify/aoj-grl-6-b.cpp" %}
