@@ -30,7 +30,7 @@ struct StronglyConnectedComponents {
     for(int to : rg[idx]) rdfs(to, cnt);
   }
 
-  void build(G &t) {
+  void build(UnWeightedGraph &t) {
     for(int i = 0; i < gg.size(); i++) dfs(i);
     reverse(begin(order), end(order));
     int ptr = 0;
@@ -38,10 +38,10 @@ struct StronglyConnectedComponents {
 
     t.resize(ptr);
     for(int i = 0; i < g.size(); i++) {
-      for(auto e : g[i]) {
-        int x = comp[i], y = comp[e];
-        e = comp[(int) e];
-        t[x].push_back(e);
+      for(auto &to : g[i]) {
+        int x = comp[i], y = comp[to];
+        if(x == y) continue;
+        t[x].push_back(y);
       }
     }
   }
