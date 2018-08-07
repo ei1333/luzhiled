@@ -1,7 +1,7 @@
 ---
 layout: post
 title: セグメント木(Segment-Tree)
-date: 2018-03-23
+date: 2018-08-07
 category: データ構造
 ---
 
@@ -49,20 +49,22 @@ category: データ構造
 
 {矩形内の点に対する更新, 矩形取得} が必要な場合はセグメント木では不可能なので, 平方分割や平面走査などの別の手法を用いる必要がある。
 
-求められる機能に更新操作がなく, クエリを先読みできるなどの状況下であれば応用 $3$ のフラクショナルカスケーディングを用いることで $O(\log N)$ に落とすこともできる。
+ここでは{矩形取得, 一点更新} について実装例を示す。
 
 * {矩形取得, 一点更新}
 {% include read.html  code="structure/segment-tree-2d.cpp" %}
 
-*  {矩形内の点に対する更新, 一点取得}
-{% include read.html  code="structure/segment-tree-2d-2.cpp" %}
+例えば矩形sum, 一点addの場合の使用例は次のとおりである。矩形sumを求めるときは横方向, 縦方向ともに半開区間で渡すと良い。
 
-TODO: verify, 使い方
+{% highlight cpp %}
+using BIT = BinaryIndexedTree< int >;
+auto f = [](int x, int y) { return x + y; };
+auto g = [](BIT &k, int x, int y) { return k.sum(y - 1) - k.sum(x - 1); };
+auto h = [](BIT &k, int x, int y) { k.add(x, y); };
 
-## 応用3: フラクショナルカスケーディング
-オフラインの場合に, 二分探索を効率化するための補助的な配列を前計算することで二次元矩形クエリを $O(\log N)$ で答えることができる。
+SegmentTree2DCompressed< BIT, int, int > seg(100002, f, g, h, 0);
+{% endhighlight %}
 
-{% include read.html  code="structure/segment-tree-fractional-cascading.cpp" %}
 
 ## 応用 4: 二分探索
 セグメント木 + 二分探索は愚直に実装すると $O(\log^2 N)$ かかるが, ほとんどの場合はセグメント木上を二分探索することで $O(\log N)$ に落とすことができる。
