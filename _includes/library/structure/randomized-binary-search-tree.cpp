@@ -65,7 +65,7 @@ struct RandomizedBinarySearchTree
     return t;
   }
 
-  Node *propagete(Node *t)
+  Node *propagate(Node *t)
   {
     t = clone(t);
     if(t->lazy != OM0) {
@@ -89,11 +89,11 @@ struct RandomizedBinarySearchTree
   {
     if(!l || !r) return l ? l : r;
     if(xor128() % (l->cnt + r->cnt) < l->cnt) {
-      l = propagete(l);
+      l = propagate(l);
       l->r = merge(l->r, r);
       return update(l);
     } else {
-      r = propagete(r);
+      r = propagate(r);
       r->l = merge(l, r->l);
       return update(r);
     }
@@ -102,7 +102,7 @@ struct RandomizedBinarySearchTree
   pair< Node *, Node * > split(Node *t, int k)
   {
     if(!t) return {t, t};
-    t = propagete(t);
+    t = propagate(t);
     if(k <= count(t->l)) {
       auto s = split(t->l, k);
       t->l = s.second;
@@ -129,7 +129,7 @@ struct RandomizedBinarySearchTree
   void dump(Node *r, typename vector< Monoid >::iterator &it)
   {
     if(!r) return;
-    r = propagete(r);
+    r = propagate(r);
     dump(r->l, it);
     *it = r->key;
     dump(r->r, ++it);
@@ -177,12 +177,12 @@ struct RandomizedBinarySearchTree
     auto x = split(t, a);
     auto y = split(x.second, b - a);
     y.first->lazy = h(y.first->lazy, p);
-    t = merge(x.first, merge(propagete(y.first), y.second));
+    t = merge(x.first, merge(propagate(y.first), y.second));
   }
 
   void set_element(Node *&t, int k, const Monoid &x)
   {
-    t = propagete(t);
+    t = propagate(t);
     if(k < count(t->l)) set_element(t->l, k, x);
     else if(k == count(t->l)) t->key = t->sum = x;
     else set_element(t->r, k - count(t->l) - 1, x);

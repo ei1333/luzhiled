@@ -14,7 +14,7 @@ category: データ構造
 
 ## 実装例
 
-* Sparsetable($v$): 配列 $v$ で初期化する。
+* SparseTable($v$): 配列 $v$ で初期化する。
 * rmq($l$, $r$): 区間 $[l, r)$ の最小値を返す。
 
 {% include read.html  code="structure/sparse-table.cpp" %}
