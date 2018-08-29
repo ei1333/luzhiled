@@ -28,3 +28,14 @@ exist は子供以下に追加された文字列の個数, accept はそのノ�
 
 [AtCoder 天下一プログラマーコンテスト2016本戦 C - たんごたくさん](https://tenka1-2016-final-open.contest.atcoder.jp/tasks/tenka1_2016_final_c)
 {% include read.html code="structure/verify/atcoder-tenka1-2016-final-c.cpp" %}
+
+## 応用1: 2進Trie
+
+Trie は xor と相性が良い。以下では、Trieに格納されている値全体に対する xor と, max, min, mex クエリを実装している。
+
+{% include read.html  code="structure/binary-trie.cpp" %}
+
+## 応用2: 永続Trie
+
+Trie は木なので比較的容易に永続できる。以下では、2進Trieをポインタベースで実装し、永続している。
+{% include read.html  code="structure/persistent-binary-trie.cpp" %}

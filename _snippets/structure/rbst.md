@@ -34,3 +34,9 @@ RBST(Randomized Binary Search Tree)は平衡二分探索木の一種。ランダ
 [AtCoder SoundHound Programming Contest 2018 Masters Tournament 本戦 E - Hash Swapping](https://beta.atcoder.jp/contests/soundhound2018-summer-final-open/tasks/soundhound2018_summer_final_e)
 {% include read.html code="structure/verify/atcoder-shpc-2018-final-e.cpp" %}
 
+## 応用: Multiset, Set
+既に実装した機能に加えて, lower_bound() などを実装することで Multisetや Set として利用することができる。
+
+kth_element は k(0-indeed) 番目に小さい値を返す。
+
+{% include read.html  code="structure/randomized-binary-search-tree-set.cpp" %}

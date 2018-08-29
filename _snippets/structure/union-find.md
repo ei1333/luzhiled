@@ -25,3 +25,24 @@ $\alpha$ はアッカーマンの逆関数。
 
 [AOJ DSL_1_A 互いに素な集合](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_1_A&lang=jp)
 {% include read.html code="structure/verify/aoj-dsl-1-a.cpp" %}
+
+## 応用1: 2部グラフの頂点彩色
+Union-Find を用いると $2$ 部グラフ判定とその副作用として彩色が可能。頂点を倍長して偶奇に分ける。隣接頂点を同じ色にするときは, $\mathrm{unite}(u, v)$ と $\mathrm{unite}(u+N, v+N)$, 異なる色にするときは $\mathrm{unite}(u+N, v)$ と $\mathrm{unite}(u, v+N)$ をする。
+
+* bipartite_coloring(): 2部グラフの頂点彩色をする。2部グラフであるとき true, そうではないとき false を返す。
+* \[$k$\]: 頂点 $k$ の色を返す。
+
+{% include read.html  code="structure/bipartite-graph.cpp" %}
+
+## 応用2: 部分永続Union-Find
+
+$t$ 番目のクエリを処理した時点における頂点 $x$ が含まれる連結成分の根や大きさを求めるクエリを $O(log N)$ で行うことができる。
+
+{% include read.html  code="structure/partially-persistent-union-find.cpp" %}
+
+## 応用2: 完全永続Union-Find
+永続配列を使うことで, Union-Find を完全永続させられる。メモリを結構消費するので注意。
+
+依存ライブラリ [Persistent-Array](persistent-array.html)
+
+{% include read.html  code="structure/persistent-union-find.cpp" %}
