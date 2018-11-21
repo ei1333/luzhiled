@@ -88,7 +88,7 @@ struct BinaryTrie {
     }
   }
 
-  pair< T, int > max_query() {
+  T max_query() {
     return max_query(0, MAX_LOG, 0);
   }
 

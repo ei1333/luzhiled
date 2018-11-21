@@ -31,7 +31,7 @@ exist は子供以下に追加された文字列の個数, accept はそのノ�
 
 ## 応用1: 2進Trie
 
-Trie は xor と相性が良い。以下では、Trieに格納されている値全体に対する xor と, max, min, mex クエリを実装している。
+Trie は xor と相性が良い。以下では、Trieに格納されている値全体に対する xor と, max, min, mex クエリを実装している。(全体xorについては遅延評価しなくてもできる 実装の簡略化が目的）
 
 {% include read.html  code="structure/binary-trie.cpp" %}
 

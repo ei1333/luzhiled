@@ -18,12 +18,14 @@ int main() {
   }
   vector< int > ans(Q);
   CentroidDecomposition< UnWeightedGraph > cd(g);
-  vector< int > sz(N);
-
+  UnWeightedGraph tree;
+  int root = cd.build(tree);
+  vector< int > used(N), sz(N);
+ 
   function< void(int, int, int, int) > add_path = [&](int idx, int par, int dep, int d) {
     sz[dep] += d;
     for(auto &to : g[idx]) {
-      if(to == par || cd.killed(to)) continue;
+      if(to == par || used[to]) continue;
       add_path(to, idx, dep + 1, d);
     }
   };
@@ -34,12 +36,12 @@ int main() {
       ans[e.second] += sz[rest];
     }
     for(auto &to : g[idx]) {
-      if(to == par || cd.killed(to)) continue;
+      if(to == par || used[to]) continue;
       get_path(to, idx, dep + 1);
     }
   };
-
-  auto beet = [&](int idx) {
+  function< void(int) > beet = [&](int idx) {
+    used[idx] = true;
     add_path(idx, -1, 0, 1);
     for(auto &e : ev[idx]) {
       int rest = e.first;
@@ -47,14 +49,15 @@ int main() {
       ans[e.second] += sz[rest];
     }
     for(auto &to : g[idx]) {
-      if(cd.killed(to)) continue;
+      if(used[to]) continue;
       add_path(to, idx, 1, -1);
       get_path(to, idx, 1);
       add_path(to, idx, 1, 1);
     }
     add_path(idx, -1, 0, -1);
+    for(auto &to : tree[idx]) beet(to);
+    used[idx] = false;
   };
-  cd.centroid_decomp(0, beet);
+  beet(root);
   for(auto &x : ans) printf("%d\n", x);
 }
-

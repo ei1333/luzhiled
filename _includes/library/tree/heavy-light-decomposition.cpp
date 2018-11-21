@@ -36,6 +36,15 @@ struct HeavyLightDecomposition {
     dfs_hld(0, -1, t);
   }
 
+  int la(int v, int k) {
+    while(1) {
+      int u = head[v];
+      if(in[v] - k >= in[u]) return rev[in[v] - k];
+      k -= in[v] - in[u] + 1;
+      v = par[u];
+    }
+  }
+
   int lca(int u, int v) {
     for(;; v = par[head[v]]) {
       if(in[u] > in[v]) swap(u, v);

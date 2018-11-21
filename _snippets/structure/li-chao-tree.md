@@ -12,7 +12,8 @@ category: データ構造
 * クエリ $O(\log N)$
 
 ## 実装例
-
+* update($a$, $b$):= 直線 $ax + b$ を追加する。
+* query($k$):= $x=k$ での $ax + b$ の最小値を求める。
 
 {% include read.html  code="structure/li-chao-tree.cpp" %}
 

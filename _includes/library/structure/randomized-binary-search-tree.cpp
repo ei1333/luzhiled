@@ -78,7 +78,7 @@ struct RandomizedBinarySearchTree
       if(t->r) {
         t->r = clone(t->r);
         t->r->lazy = h(t->r->lazy, t->lazy);
-        t->r->sum = f(t->r->sum, p(t->lazy, count(t->r)));
+        t->r->sum = f(p(t->lazy, count(t->r)), t->r->sum);
       }
       t->lazy = OM0;
     }
