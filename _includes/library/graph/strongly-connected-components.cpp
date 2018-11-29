@@ -14,7 +14,7 @@ struct StronglyConnectedComponents {
   }
 
   int operator[](int k) {
-    return (comp[k]);
+    return comp[k];
   }
 
   void dfs(int idx) {
@@ -41,8 +41,6 @@ struct StronglyConnectedComponents {
       for(auto &to : g[i]) {
         int x = comp[i], y = comp[to];
         if(x == y) continue;
-	if(used[to] == i + 2) continue;
-	used[to] = i + 2;
         t[x].push_back(y);
       }
     }

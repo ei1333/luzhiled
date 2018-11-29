@@ -6,7 +6,7 @@ struct PersistentSegmentTree {
     Monoid data;
     Node *l, *r;
  
-    Node(const Monoid &data) : data(data) {}
+    Node(const Monoid &data) : data(data), l(nullptr), r(nullptr) {}
   };
  
  
@@ -48,7 +48,7 @@ struct PersistentSegmentTree {
   }
  
   Monoid query(int a, int b, Node *k, int l, int r) {
-    if(r <= a || b <= l || !k) {
+    if(r <= a || b <= l) {
       return M1;
     } else if(a <= l && r <= b) {
       return k->data;
