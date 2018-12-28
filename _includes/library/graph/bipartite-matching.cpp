@@ -18,10 +18,10 @@ struct BipartiteMatching {
       if(to_match == -1 || (used[to_match] != timestamp && dfs(to_match))) {
         match[idx] = to;
         match[to] = idx;
-        return (true);
+        return true;
       }
     }
-    return (false);
+    return false;
   }
 
   int bipartite_matching() {
@@ -33,7 +33,7 @@ struct BipartiteMatching {
         ret += dfs(i);
       }
     }
-    return (ret);
+    return ret;
   }
 
   void output() {
