@@ -1,4 +1,4 @@
-te< int mod >
+template< int mod >
 struct ModInt
 {
   int x;
