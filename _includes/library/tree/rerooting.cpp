@@ -1,10 +1,13 @@
-template< typename Data, typename T, typename F1, typename F2 >
+template< typename Data, typename T >
 struct ReRooting {
 
   struct Node {
     int to, rev;
     Data data;
   };
+
+  using F1 = function< T(T, T) >;
+  using F2 = function< T(T, Data) >;
 
   vector< vector< Node > > g;
   vector< vector< T > > ldp, rdp;
@@ -25,12 +28,12 @@ struct ReRooting {
 
     while(lptr[idx] != par && lptr[idx] < g[idx].size()) {
       auto &e = g[idx][lptr[idx]];
-      ldp[idx][lptr[idx] + 1] = f1(ldp[idx][lptr[idx]], f2(dfs(e.to, e.rev), idx, e.to, e.data));
+      ldp[idx][lptr[idx] + 1] = f1(ldp[idx][lptr[idx]], f2(dfs(e.to, e.rev), e.data));
       ++lptr[idx];
     }
     while(rptr[idx] != par && rptr[idx] >= 0) {
       auto &e = g[idx][rptr[idx]];
-      rdp[idx][rptr[idx]] = f1(rdp[idx][rptr[idx] + 1], f2(dfs(e.to, e.rev), idx, e.to, e.data));
+      rdp[idx][rptr[idx]] = f1(rdp[idx][rptr[idx] + 1], f2(dfs(e.to, e.rev), e.data));
       --rptr[idx];
     }
     if(par < 0) return rdp[idx][0];

@@ -1,7 +1,14 @@
 using int64 = long long;
 const int mod = 1e9 + 7;
-const int inf = (1 << 30) - 1;
-const int64 infll = (1LL << 61) - 1;
+
+struct INFTY {
+  const int64 infll = (1LL << 62) - 1;
+  const int inf = (1 << 30) - 1;
+
+  operator int64() { return infll; }
+
+  operator int() { return inf; }
+} inf;
 
 struct IoSetup {
   IoSetup() {

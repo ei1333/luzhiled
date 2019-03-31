@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Mod-Int
-date: 2018-12-28
-category: その他
+date: 2019-03-31
+category: 数学
 ---
 
 ## 説明
@@ -13,4 +13,4 @@ mod M での四則演算を行う構造体である。
 * 除算 $O(\log N)$ ($M$ は素数)
 
 ## 実装例
-{% include read.html  code="other/mod-int.cpp" %}
+{% include read.html  code="math/mod-int.cpp" %}

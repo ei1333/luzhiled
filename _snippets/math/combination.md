@@ -14,5 +14,8 @@ ${}_n \mathrm{C} _r$ などを求める。
 * クエリ $O(1)$
 
 ## 実装例
+依存ライブラリ [Mod-Int](../math/mod-int.html)
+
+テンプレート引数としてMod-Intが渡されることを想定している。
 
 {% include read.html  code="math/combination.cpp" %}
