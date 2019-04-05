@@ -3,7 +3,6 @@ layout: post
 title: ベル数(Bell-Number)
 date: 2019-03-31
 category: 数学
-tags: べき乗
 ---
 
 ## 説明

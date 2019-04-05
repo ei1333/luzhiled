@@ -15,6 +15,7 @@ tags: 最小全域有向木
 * $O(E \log V)$
 
 ## 実装例
+依存ライブラリ [Skew-Heap](../structure/skew-heap.html)
 
 * MinimumSpanningTreeArborescence($es$, $V$):= 頂点数 $V$ 重み付き辺集合 $es$ のグラフで初期化する。
 * build($start)$:= 頂点 $start$ を根とする最小全域有向木のコストを返す。全域有向木が存在しない時 $-1$ を返す。

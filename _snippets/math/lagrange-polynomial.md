@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ラグランジュ補完(Lagrange-Polynomial)
+title: ラグランジュ補間(Lagrange-Polynomial)
 date: 2019-04-05
 category: 数学
 ---
@@ -19,3 +19,8 @@ $N$ 次多項式 $f(x)$ があって、$f(0), f(1), \cdots, f(N)$ がわかっ�
 * lagrange_polynomial($y$, $t$)
 
 {% include read.html  code="math/lagrange-polynomial.cpp" %}
+
+## 検証
+[AtCoder ARC_033_D - 見たことのない多項式](https://atcoder.jp/contests/arc033/tasks/arc033_4)
+
+{% include read.html code="math/verify/atcoder-arc-033-d.cpp" %}
