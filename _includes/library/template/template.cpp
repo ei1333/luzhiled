@@ -1,14 +1,8 @@
 using int64 = long long;
 const int mod = 1e9 + 7;
 
-struct INFTY {
-  const int64 infll = (1LL << 62) - 1;
-  const int inf = (1 << 30) - 1;
-
-  operator int64() { return infll; }
-
-  operator int() { return inf; }
-} inf;
+const int64 infll = (1LL << 62) - 1;
+const int inf = (1 << 30) - 1;
 
 struct IoSetup {
   IoSetup() {
@@ -18,6 +12,19 @@ struct IoSetup {
     cerr << fixed << setprecision(10);
   }
 } iosetup;
+
+
+template< typename T1, typename T2 >
+ostream &operator<<(ostream &os, const pair< T1, T2 >& p) {
+  os << p.first << " " << p.second;
+  return os;
+}
+
+template< typename T1, typename T2 >
+istream &operator>>(istream &is, pair< T1, T2 > &p) {
+  is >> p.first >> p.second;
+  return is;
+}
 
 template< typename T >
 ostream &operator<<(ostream &os, const vector< T > &v) {
@@ -59,3 +66,6 @@ typename enable_if< is_class< T >::value != 0 >::type fill_v(T &t, const V &v) {
   for(auto &e : t) fill_v(e, v);
 }
 
+int main() {
+ $END$
+}
