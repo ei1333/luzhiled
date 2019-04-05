@@ -29,3 +29,7 @@ category: データ構造
 
 {% include read.html  code="structure/sqrt-decomposition.cpp" %}
 
+## 検証
+[AtCoder 早稲田大学プログラミングコンテスト2019 D - Choose Your Characters](https://atcoder.jp/contests/wupc2019/tasks/wupc2019_d)
+{% include read.html code="structure/verify/atcoder-wupc-2019-d.cpp" %}
+

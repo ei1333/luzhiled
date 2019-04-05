@@ -12,5 +12,9 @@ category: 動的計画法
 * $O(N)$
 
 ## 実装例
-* slide_min($v$, $k$): 配列 $v$ の幅 $k$ の各連続区間についての最小値を返す。
+* slide_min($v$, $k$): 配列 $v$ の幅 $k$(1-indexed) の各連続区間についての最小値を返す。
 {% include read.html  code="dp/slide-min.cpp" %}
+
+## 検証
+[AtCoder CODE FESTIVAL 2016 Tournament Round 3 A - ストラックアウト](https://atcoder.jp/contests/cf16-tournament-round3-open/tasks/asaporo_d)
+{% include read.html code="dp/verify/atcoder-cf16-tournament-round3-a.cpp" %}

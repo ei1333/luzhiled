@@ -17,3 +17,9 @@ tags: 素数
 * is_prime($x$):= $x$ が素数なら $true$、それ以外なら $false$ を返す。
 
 {% include read.html  code="math/is-prime.cpp" %}
+
+## 検証
+[AOJ ALDS_1_1_C 素数](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_1_C&lang=jp)
+
+{% include read.html code="math/verify/aoj-alds-1-1-c.cpp" %}
+

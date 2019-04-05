@@ -17,3 +17,9 @@ tags: 素数
 * prime_table($n$):= $n$ 以下の素数テーブルを返す。$i$ 番目の要素が $true$ のとき $i$ が素数であることを表す。
 
 {% include read.html  code="math/prime-table.cpp" %}
+
+## 検証
+[AOJ ALDS_1_1_C 素数](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_1_C&lang=jp)
+
+{% include read.html code="math/verify/aoj-alds-1-1-c-2.cpp" %}
+
