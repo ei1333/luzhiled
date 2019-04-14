@@ -12,13 +12,12 @@ category: 数学
 特に $B(n,n)$ は $n$ 個のボールを任意個のグループに分割する方法の数である。
 
 ## 計算量
-* $O(K^2 \log N)$
+* $O(\min(n, k) \log n)$
 
 ## 実装例
 
 依存ライブラリ [Mod-Int](../math/mod-int.html)
 [Combination](../math/combination.html)
-[Stirling-Number-Of-The-Second-Kind](../math/stirling-number-second.html)
 
 * bell_number($n$, $k$):= $B(n,k)$ を返す
 {% include read.html  code="math/bell-number.cpp" %}
@@ -27,16 +26,3 @@ category: 数学
 [AOJ DPL_5_G ボールと箱 7](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_5_G&lang=jp)
 
 {% include read.html code="math/verify/aoj-dpl-5-g.cpp" %}
-
-
-## 応用1: B(n,n)
-$B(n,n)$ はより効率的に求めることが可能。$O(N \log N)$ 
-
-[きりかしゃんのツイート](https://twitter.com/kirika_comp/status/953991620990390272)
-
-依存ライブラリ [Mod-Int](../math/mod-int.html)
-[Combination](../math/combination.html)
-
-* bell_number($n$):= $B(n,n)$ を返す
-
-{% include read.html  code="math/bell-number-2.cpp" %}

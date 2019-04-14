@@ -1,7 +1,16 @@
 template< typename T >
 T bell_number(int n, int k) {
+  k = min(k, n);
+  Combination< T > uku(k);
   T ret = 0;
-  for(int j = 1; j <= k; j++) ret += stirling_number_second< T >(n, j);
+  vector< T > pref(k + 1);
+  pref[0] = 1;
+  for(int i = 1; i <= k; i++) {
+    if(i & 1) pref[i] = pref[i - 1] - uku.rfact(i);
+    else pref[i] = pref[i - 1] + uku.rfact(i);
+  }
+  for(int i = 1; i <= k; i++) {
+    ret += (T(i) ^ n) * uku.rfact(i) * pref[k - i];
+  }
   return ret;
 }
-
