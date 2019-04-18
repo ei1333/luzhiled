@@ -1,122 +1,145 @@
-template< typename T >
-struct BinaryTrieNode {
-  int nxt[2];
-  T lazy;
-  int exist; // 子ども以下に存在する文字列の数の合計
-  vector< int > accept; // その文字列id
-
-  BinaryTrieNode() : exist(0) {
-    nxt[0] = nxt[1] = -1;
-  }
-};
-
 template< typename T, int MAX_LOG >
 struct BinaryTrie {
+  BinaryTrie *nxt[2];
+  T lazy;
+  int exist;
+  bool fill;
+  vector< int > accept;
 
-  using Node = BinaryTrieNode< T >;
-  vector< Node > nodes;
-  int root;
+  BinaryTrie() : exist(0), lazy(0), nxt{nullptr, nullptr} {}
 
-  BinaryTrie() : root(0) {
-    nodes.push_back(Node());
-  }
-
-  void update_direct(int node, int id) {
-    ++nodes[node].exist; //notice!!
-    nodes[node].accept.push_back(id);
-    direct_action(node, id);
-  }
-
-  void update_child(int node, int child, int id) {
-    ++nodes[node].exist;
-    child_action(node, child, id);
-  }
-
-  void add(const T &bit, int bit_index, int node_index, int id) {
-    propagate(bit_index, node_index);
+  void add(const T &bit, int bit_index, int id) {
+    propagate(bit_index);
     if(bit_index == -1) {
-      update_direct(node_index, id);
+      ++exist;
+      accept.push_back(id);
     } else {
-      const int c = (bit >> bit_index) & 1;
-      if(nodes[node_index].nxt[c] == -1) {
-        nodes[node_index].nxt[c] = (int) nodes.size();
-        nodes.push_back(Node());
-      }
-      add(bit, bit_index - 1, nodes[node_index].nxt[c], id);
-      update_child(node_index, nodes[node_index].nxt[c], id);
+      auto &to = nxt[(bit >> bit_index) & 1];
+      if(!to) to = new BinaryTrie();
+      to->add(bit, bit_index - 1, id);
+      ++exist;
     }
   }
 
   void add(const T &bit, int id) {
-    add(bit, MAX_LOG, 0, id);
+    add(bit, MAX_LOG, id);
   }
 
   void add(const T &bit) {
-    add(bit, nodes[0].exist);
+    add(bit, exist);
   }
 
-  T max_query(T bit, int bit_index, int node_index) {
-    if(bit_index == -1) return bit;
-    propagate(bit_index, node_index);
-    if(~nodes[node_index].nxt[1] && nodes[nodes[node_index].nxt[1]].exist) {
-      return max_query(bit | (1LL << bit_index), bit_index - 1, nodes[node_index].nxt[1]);
+  void del(const T &bit, int bit_index) {
+    propagate(bit_index);
+    if(bit_index == -1) {
+      exist--;
     } else {
-      return max_query(bit, bit_index - 1, nodes[node_index].nxt[0]);
+      nxt[(bit >> bit_index) & 1]->del(bit, bit_index - 1);
+      exist--;
     }
   }
 
-  T min_query(T bit, int bit_index, int node_index) {
-    if(bit_index == -1) return bit;
-    propagate(bit_index, node_index);
-    if(~nodes[node_index].nxt[0] && nodes[nodes[node_index].nxt[0]].exist) {
-      return min_query(bit, bit_index - 1, nodes[node_index].nxt[0]);
+  void del(const T &bit) {
+    del(bit, MAX_LOG);
+  }
+
+
+  pair< T, BinaryTrie * > max_element(int bit_index) {
+    propagate(bit_index);
+    if(bit_index == -1) return {0, this};
+    if(nxt[1] && nxt[1]->size()) {
+      auto ret = nxt[1]->max_element(bit_index - 1);
+      ret.first |= T(1) << bit_index;
+      return ret;
     } else {
-      return min_query(bit | (1LL << bit_index), bit_index - 1, nodes[node_index].nxt[1]);
+      return nxt[0]->max_element(bit_index - 1);
     }
   }
 
-  T mex_query(int bit_index, int node_index) { // distinct-values
-    if(bit_index == -1 || node_index == -1) {
-      return 0;
+  pair< T, BinaryTrie * > min_element(int bit_index) {
+    propagate(bit_index);
+    if(bit_index == -1) return {0, this};
+    if(nxt[0] && nxt[0]->size()) {
+      return nxt[0]->min_element(bit_index - 1);
     } else {
-      propagate(bit_index, node_index);
-      if(~nodes[node_index].nxt[0] && nodes[nodes[node_index].nxt[0]].exist == (1LL << bit_index)) {
-        return mex_query(bit_index - 1, nodes[node_index].nxt[1]) | (1LL << bit_index);
-      } else {
-        return mex_query(bit_index - 1, nodes[node_index].nxt[0]);
-      }
+      auto ret = nxt[1]->min_element(bit_index - 1);
+      ret.first |= T(1) << bit_index;
+      return ret;
     }
   }
 
-  T max_query() {
-    return max_query(0, MAX_LOG, 0);
+  T mex_query(int bit_index) { // distinct-values
+    propagate(bit_index);
+    if(bit_index == -1 || !nxt[0]) return 0;
+    if(nxt[0]->size() == (T(1) << bit_index)) {
+      T ret = T(1) << bit_index;
+      if(nxt[1]) ret |= nxt[1]->mex_query(bit_index - 1);
+      return ret;
+    } else {
+      return nxt[0]->mex_query(bit_index - 1);
+    }
   }
 
-  T min_query() {
-    return min_query(0, MAX_LOG, 0);
+  int64_t count_less(const T &bit, int bit_index) {
+    propagate(bit_index);
+    if(bit_index == -1) return 0;
+    int64_t ret = 0;
+    if((bit >> bit_index) & 1) {
+      if(nxt[0]) ret += nxt[0]->size();
+      if(nxt[1]) ret += nxt[1]->count_less(bit, bit_index - 1);
+    } else {
+      if(nxt[0]) ret += nxt[0]->count_less(bit, bit_index - 1);
+    }
+    return ret;
+  }
+
+  pair< T, BinaryTrie * > get_kth(int64_t k, int bit_index) { // 1-indexed
+    propagate(bit_index);
+    if(bit_index == -1) return {0, this};
+    if((nxt[0] ? nxt[0]->size() : 0) < k) {
+      auto ret = nxt[1]->get_kth(k - (nxt[0] ? nxt[0]->size() : 0), bit_index - 1);
+      ret.first |= T(1) << bit_index;
+      return ret;
+    } else {
+      return nxt[0]->get_kth(k, bit_index - 1);
+    }
+  }
+
+  pair< T, BinaryTrie * > max_element() {
+    assert(exist);
+    return max_element(MAX_LOG);
+  }
+
+  pair< T, BinaryTrie * > min_element() {
+    assert(exist);
+    return min_element(MAX_LOG);
   }
 
   T mex_query() {
-    return mex_query(MAX_LOG, 0);
+    return mex_query(MAX_LOG);
   }
 
   int size() const {
-    return (nodes[0].exist);
-  }
-
-  int nodesize() const {
-    return ((int) nodes.size());
+    return exist;
   }
 
   void xorpush(const T &bit) {
-    nodes[0].lazy ^= bit;
+    lazy ^= bit;
   }
 
-  void propagate(int bit_index, int node_index) {
-    const int c = (nodes[node_index].lazy >> bit_index) & 1;
-    if(c) swap(nodes[node_index].nxt[0], nodes[node_index].nxt[1]);
-    if(~nodes[node_index].nxt[0]) nodes[nodes[node_index].nxt[0]].lazy ^= nodes[node_index].lazy;
-    if(~nodes[node_index].nxt[1]) nodes[nodes[node_index].nxt[1]].lazy ^= nodes[node_index].lazy;
-    nodes[node_index].lazy = 0;
+  int64_t count_less(const T &bit) {
+    return count_less(bit, MAX_LOG);
+  }
+
+  pair< T, BinaryTrie * > get_kth(int64_t k) {
+    assert(0 < k && k <= size());
+    return get_kth(k, MAX_LOG);
+  }
+
+  void propagate(int bit_index) {
+    if((lazy >> bit_index) & 1) swap(nxt[0], nxt[1]);
+    if(nxt[0]) nxt[0]->lazy ^= lazy;
+    if(nxt[1]) nxt[1]->lazy ^= lazy;
+    lazy = 0;
   }
 };
