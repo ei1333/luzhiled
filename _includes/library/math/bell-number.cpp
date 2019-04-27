@@ -11,7 +11,7 @@ T bell_number(int n, int k) {
     else pref[i] = pref[i - 1] + uku.rfact(i);
   }
   for(int i = 1; i <= k; i++) {
-    ret += (T(i) ^ n) * uku.rfact(i) * pref[k - i];
+    ret += T(i).pow(n) * uku.rfact(i) * pref[k - i];
   }
   return ret;
 }
