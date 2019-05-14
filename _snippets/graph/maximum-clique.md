@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 最大クリーク(Maximum-Clique)
-date: 209-05-09
+date: 209-05-14
 category: グラフ
 ---
 
@@ -15,9 +15,7 @@ category: グラフ
 * $O(2^{\sqrt {2M}} N)$
 
 ## 実装例
-！！！最大クリークの大きさが $1$ のとき $0$ を返すので注意！(辺に重みがついた最大クリークに対応したためなんですが、うく）！！
-
-* maximum_clique($g$):= 隣接行列 $g$ で表されるグラフの最大クリークを求める。
+* maximum_clique($g$, $f$):= 隣接行列 $g$ で表されるグラフのクリークを全列挙する。$f$ がクリークごとに呼び出され, そのとき渡されるvectorにはそのクリークを構成する頂点が格納されている。最終的に $f$ の戻り値のmaxが返される(verifyコード参照)。
 
 {% include read.html  code="graph/maximum-clique.cpp" %}
 
