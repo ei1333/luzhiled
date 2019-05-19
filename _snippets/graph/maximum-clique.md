@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 最大クリーク(Maximum-Clique)
-date: 209-05-14
+date: 2019-05-14
 category: グラフ
 ---
 
