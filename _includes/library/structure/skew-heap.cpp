@@ -1,11 +1,9 @@
 template< typename T, typename E = T >
-struct SkewHeap
-{
+struct SkewHeap {
   using G = function< T(T, E) >;
   using H = function< E(E, E) >;
 
-  struct Node
-  {
+  struct Node {
     T key;
     E lazy;
     Node *l, *r;
@@ -20,8 +18,7 @@ struct SkewHeap
 
   SkewHeap(const G &g, const H &h, bool rev = false) : g(g), h(h), rev(rev) {}
 
-  Node *propagate(Node *t)
-  {
+  Node *propagate(Node *t) {
     if(t->lazy != 0) {
       if(t->l) t->l->lazy = h(t->l->lazy, t->lazy);
       if(t->r) t->r->lazy = h(t->r->lazy, t->lazy);
@@ -31,8 +28,7 @@ struct SkewHeap
     return t;
   }
 
-  Node *merge(Node *x, Node *y)
-  {
+  Node *merge(Node *x, Node *y) {
     if(!x || !y) return x ? x : y;
     propagate(x), propagate(y);
     if((x->key > y->key) ^ rev) swap(x, y);
@@ -41,39 +37,33 @@ struct SkewHeap
     return x;
   }
 
-  void push(Node *&root, const T &key)
-  {
+  void push(Node *&root, const T &key) {
     root = merge(root, new Node({key, 0, nullptr, nullptr}));
   }
 
-  T top(Node *root)
-  {
+  T top(Node *root) {
     return propagate(root)->key;
   }
 
-  void pop(Node *&root)
-  {
+  void pop(Node *&root) {
     propagate(root);
     auto *temp = root;
     root = merge(root->l, root->r);
     delete temp;
   }
 
-  bool empty(Node *root) const
-  {
+  bool empty(Node *root) const {
     return !root;
   }
 
-  void add(Node *root, const E &lazy)
-  {
+  void add(Node *root, const E &lazy) {
     if(root) {
       root->lazy = h(root->lazy, lazy);
       propagate(root);
     }
   }
 
-  Node *makeheap()
-  {
+  Node *makeheap() {
     return nullptr;
   }
 };
