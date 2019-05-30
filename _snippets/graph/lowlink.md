@@ -20,7 +20,7 @@ category: グラフ
 ## 実装例
 
 * LowLink($g$):= グラフ $g$ で初期化する。
-* build():= グラフ $g$ に対する LowLink を構築する。構築後, articulation には関節点, bridge には橋が追加される。
+* build():= グラフ $g$ に対する LowLink を構築する。構築後, articulation には関節点, bridge には橋が追加される。非連結でもOK。
 
 {% include read.html  code="graph/lowlink.cpp" %}
 
