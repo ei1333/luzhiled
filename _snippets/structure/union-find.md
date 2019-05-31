@@ -46,3 +46,14 @@ $t$ 番目のクエリを処理した時点における頂点 $x$ が含まれ�
 依存ライブラリ [Persistent-Array](persistent-array.html)
 
 {% include read.html  code="structure/persistent-union-find.cpp" %}
+
+## 応用3: Undo可能Union-Find
+
+{% include read.html  code="structure/union-find-undo.cpp" %}
+
+## 応用4: 重み付きUnion-Find
+
+{% include read.html  code="structure/weighted-union-find.cpp" %}
+
+[AOJ DSL_1_B 重み付きUnion Find木](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_1_B&lang=jp)
+{% include read.html code="structure/verify/aoj-dsl-1-b.cpp" %}
