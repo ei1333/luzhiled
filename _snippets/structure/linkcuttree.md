@@ -22,6 +22,8 @@ category: データ構造
 * lca($u$, $v$) : $u$ と $v$ のLCAを返す。
 * get_path($t$) : $t$ から根までのパスに出現する頂点を返す($O(n)$)。
 * set_propagate($t$, $x$) : 根からノード $t$ までのパスに作用素 $x$ を適用する。
+* get_kth($x$, $k$) := $x$ から根までのパスに出現する頂点を並べたときの $k$ 番目の頂点を返す(0-indexed, つまり $x$ が $0$ 番目)。
+* get_root($x$):= $x$ の根を返す。
 
 {% include read.html  code="structure/linkcuttree.cpp" %}
 

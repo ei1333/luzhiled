@@ -159,7 +159,7 @@ struct LinkCutTree {
     return expose(v);
   }
 
-  vector< int > getpath(Node *x) {
+  vector< int > get_path(Node *x) {
     vector< int > vs;
     function< void(Node *) > dfs = [&](Node *cur) {
       if(!cur) return;
@@ -178,4 +178,29 @@ struct LinkCutTree {
     propagate(t, x);
     push(t);
   }
+
+  Node *get_kth(Node *x, int k) {
+    expose(x);
+    while(x) {
+      push(x);
+      if(x->r && x->r->sz > k) {
+        x = x->r;
+      } else {
+        if(x->r) k -= x->r->sz;
+        if(k == 0) return x;
+        k -= 1;
+        x = x->l;
+      }
+    }
+    return nullptr;
+  }
+
+  Node *get_root(Node *x) {
+    while(x->l) {
+      push(x);
+      x = x->l;
+    }
+    return x;
+  }
 };
+
