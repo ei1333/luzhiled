@@ -3,6 +3,7 @@ struct LinkCutTree {
   using F = function< Monoid(Monoid, Monoid) >;
   using G = function< Monoid(Monoid, OperatorMonoid, int) >;
   using H = function< OperatorMonoid(OperatorMonoid, OperatorMonoid) >;
+  using S = function< Monoid(Monoid) >;
 
   struct Node {
     Node *l, *r, *p;
@@ -27,15 +28,16 @@ struct LinkCutTree {
   const F f;
   const G g;
   const H h;
+  const S s;
 
-  LinkCutTree() : LinkCutTree([](Monoid a, Monoid b) { return a + b; }, Monoid()) {}
+  LinkCutTree() : LinkCutTree([](Monoid a, Monoid b) { return a + b; }, [](Monoid a) { return a; }, Monoid()) {}
 
-  LinkCutTree(const F &f, const Monoid &M1) :
-      LinkCutTree(f, G(), H(), M1, OperatorMonoid()) {}
+  LinkCutTree(const F &f, const S &s, const Monoid &M1) :
+      LinkCutTree(f, G(), H(), s, M1, OperatorMonoid()) {}
 
-  LinkCutTree(const F &f, const G &g, const H &h,
+  LinkCutTree(const F &f, const G &g, const H &h, const S &s,
               const Monoid &M1, const OperatorMonoid &OM0) :
-      f(f), g(g), h(h), M1(M1), OM0(OM0) {}
+      f(f), g(g), h(h), s(s), M1(M1), OM0(OM0) {}
 
   Node *make_node(int idx, const Monoid &v = Monoid()) {
     return new Node(idx, v, OM0);
@@ -50,7 +52,7 @@ struct LinkCutTree {
   void toggle(Node *t) {
     assert(t);
     swap(t->l, t->r);
-    /* note: ここに反転の処理 */
+    t->sum = s(t->sum);
     t->rev ^= true;
   }
 
@@ -176,4 +178,4 @@ struct LinkCutTree {
     propagate(t, x);
     push(t);
   }
-}; 
+};
