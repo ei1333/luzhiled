@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 高速フーリエ変換(Fast-Fourier-Transform)
-date: 2018-05-10
+date: 2019-06-18
 category: 数学
 ---
 
@@ -9,10 +9,10 @@ category: 数学
 高速フーリエ変換による畳み込みを行う。
 
 ## 計算量
-* $O(N \log N)$
+* $O((n + m) \log (n + m))$
 
 ## 実装例
-* Multiply($A$, $B$):= 配列 $A$ と配列 $B$ を畳み込みした結果を返す。
+* multiply($a$, $b$):= 配列 $a$ と配列 $b$ を畳み込みした結果を返す。
 
 {% include read.html code="math/fast-fourier-transform.cpp" %}
 

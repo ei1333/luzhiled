@@ -70,6 +70,8 @@ struct ModInt {
     a = ModInt< mod >(t);
     return (is);
   }
+
+  static int get_mod() { return mod; }
 };
 
 using modint = ModInt< mod >;

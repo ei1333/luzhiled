@@ -1,58 +1,98 @@
-struct FastFourierTransform {
-  using C = complex< double >;
+namespace FastFourierTransform {
+  using real = double;
 
-  const double PI = acos(-1);
-  vector< vector< C > > rts, rrts;
+  struct C {
+    real x, y;
 
-  void ensure_base(int N) {
-    if(rts.size() >= N) return;
-    rts.resize(N), rrts.resize(N);
-    for(int i = 1; i < N; i <<= 1) {
-      if(rts[i].size()) continue;
-      rts[i].resize(i), rrts[i].resize(i);
-      for(int k = 0; k < i; k++) {
-        rts[i][k] = polar(1.0, PI / i * k);
-        rrts[i][k] = polar(1.0, -PI / i * k);
+    C() : x(0), y(0) {}
+
+    C(real x, real y) : x(x), y(y) {}
+
+    inline C operator+(const C &c) const { return C(x + c.x, y + c.y); }
+
+    inline C operator-(const C &c) const { return C(x - c.x, y - c.y); }
+
+    inline C operator*(const C &c) const { return C(x * c.x - y * c.y, x * c.y + y * c.x); }
+
+    inline C conj() const { return C(x, -y); }
+  };
+
+  const real PI = acosl(-1);
+  int base = 1;
+  vector< C > rts = { {0, 0},
+                     {1, 0} };
+  vector< int > rev = {0, 1};
+
+
+  void ensure_base(int nbase) {
+    if(nbase <= base) return;
+    rev.resize(1 << nbase);
+    rts.resize(1 << nbase);
+    for(int i = 0; i < (1 << nbase); i++) {
+      rev[i] = (rev[i >> 1] >> 1) + ((i & 1) << (nbase - 1));
+    }
+    while(base < nbase) {
+      real angle = PI * 2.0 / (1 << (base + 1));
+      for(int i = 1 << (base - 1); i < (1 << base); i++) {
+        rts[i << 1] = rts[i];
+        real angle_i = angle * (2 * i + 1 - (1 << base));
+        rts[(i << 1) + 1] = C(cos(angle_i), sin(angle_i));
       }
+      ++base;
     }
   }
 
-  void DiscreteFourierTransform(vector< C > &F, bool rev) {
-    const int N = (int) F.size();
-    auto &r = rev ? rrts : rts;
-
-    for(int i = 0, j = 1; j + 1 < N; j++) {
-      for(int k = N >> 1; k > (i ^= k); k >>= 1);
-      if(i > j) swap(F[i], F[j]);
+  void fft(vector< C > &a, int n) {
+    assert((n & (n - 1)) == 0);
+    int zeros = __builtin_ctz(n);
+    ensure_base(zeros);
+    int shift = base - zeros;
+    for(int i = 0; i < n; i++) {
+      if(i < (rev[i] >> shift)) {
+        swap(a[i], a[rev[i] >> shift]);
+      }
     }
-    ensure_base(N);
-    C s, t;
-    for(int i = 1; i < N; i <<= 1) {
-      for(int j = 0; j < N; j += i * 2) {
-        for(int k = 0; k < i; k++) {
-          s = F[j + k];
-          t = C(F[j + k + i].real() * r[i][k].real() - F[j + k + i].imag() * r[i][k].imag(),
-                F[j + k + i].real() * r[i][k].imag() + F[j + k + i].imag() * r[i][k].real());
-          F[j + k] = s + t, F[j + k + i] = s - t;
+    for(int k = 1; k < n; k <<= 1) {
+      for(int i = 0; i < n; i += 2 * k) {
+        for(int j = 0; j < k; j++) {
+          C z = a[i + j + k] * rts[j + k];
+          a[i + j + k] = a[i + j] - z;
+          a[i + j] = a[i + j] + z;
         }
       }
     }
-    if(rev) for(int i = 0; i < N; i++) F[i] /= N;
   }
 
-  vector< long long > Multiply(const vector< int > &A, const vector< int > &B) {
-    int sz = 1;
-    while(sz < A.size() + B.size() - 1) sz <<= 1;
-    vector< C > F(sz), G(sz);
-    for(int i = 0; i < A.size(); i++) F[i] = A[i];
-    for(int i = 0; i < B.size(); i++) G[i] = B[i];
-    DiscreteFourierTransform(F, false);
-    DiscreteFourierTransform(G, false);
-    for(int i = 0; i < sz; i++) F[i] *= G[i];
-    DiscreteFourierTransform(F, true);
-    vector< long long > X(A.size() + B.size() - 1);
-    for(int i = 0; i < A.size() + B.size() - 1; i++) X[i] = F[i].real() + 0.5;
-    return (X);
+  vector< int64_t > multiply(const vector< int > &a, const vector< int > &b) {
+    int need = (int) a.size() + (int) b.size() - 1;
+    int nbase = 1;
+    while((1 << nbase) < need) nbase++;
+    ensure_base(nbase);
+    int sz = 1 << nbase;
+    vector< C > fa(sz);
+    for(int i = 0; i < sz; i++) {
+      int x = (i < (int) a.size() ? a[i] : 0);
+      int y = (i < (int) b.size() ? b[i] : 0);
+      fa[i] = C(x, y);
+    }
+    fft(fa, sz);
+    C r(0, -0.25 / (sz >> 1)), s(0, 1), t(0.5, 0);
+    for(int i = 0; i <= (sz >> 1); i++) {
+      int j = (sz - i) & (sz - 1);
+      C z = (fa[j] * fa[j] - (fa[i] * fa[i]).conj()) * r;
+      fa[j] = (fa[i] * fa[i] - (fa[j] * fa[j]).conj()) * r;
+      fa[i] = z;
+    }
+    for(int i = 0; i < (sz >> 1); i++) {
+      C A0 = (fa[i] + fa[i + (sz >> 1)]) * t;
+      C A1 = (fa[i] - fa[i + (sz >> 1)]) * t * rts[(sz >> 1) + i];
+      fa[i] = A0 + A1 * s;
+    }
+    fft(fa, sz >> 1);
+    vector< int64_t > ret(need);
+    for(int i = 0; i < need; i++) {
+      ret[i] = llround(i & 1 ? fa[i >> 1].y : fa[i >> 1].x);
+    }
+    return ret;
   }
 };
-
