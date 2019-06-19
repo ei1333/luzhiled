@@ -17,10 +17,14 @@ struct ArbitraryModConvolution {
     }
     fft(fa, sz);
     vector< C > fb(sz);
-    for(int i = 0; i < b.size(); i++) {
-      fb[i] = C(b[i].x & ((1 << 15) - 1), b[i].x >> 15);
+    if(a == b) {
+      fb = fa;
+    } else {
+      for(int i = 0; i < b.size(); i++) {
+        fb[i] = C(b[i].x & ((1 << 15) - 1), b[i].x >> 15);
+      }
+      fft(fb, sz);
     }
-    fft(fb, sz);
     real ratio = 0.25 / sz;
     C r2(0, -1), r3(ratio, 0), r4(0, -ratio), r5(0, 1);
     for(int i = 0; i <= (sz >> 1); i++) {

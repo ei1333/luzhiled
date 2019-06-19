@@ -49,13 +49,15 @@ struct PolynominalMod : vector< T > {
     const int n = (int) this->size();
     assert(n);
     P ret({T(1) / (*this)[0]});
-    for(int k = 1; k < this->size(); k <<= 1) {
-      P tmp(min(k << 1, n));
-      for(int i = 0; i < tmp.size(); i++) tmp[i] = (*this)[i];
-      P e = -(tmp * ret);
-      e[0] += 2;
-      ret *= e;
-      ret.resize(tmp.size());
+    for(int k = 2; (k >> 1) < n; k <<= 1) {
+      P ff(min(n, k));
+      for(int i = 0; i < ff.size(); i++) ff[i] = (*this)[i];
+      P nr = ret * ret;
+      nr.resize(ff.size());
+      nr = nr * ff;
+      nr.resize(ff.size());
+      for(int i = 0; i < (k >> 1); i++) nr[i] -= ret[i] + ret[i];
+      ret = -nr;
     }
     return ret;
   }

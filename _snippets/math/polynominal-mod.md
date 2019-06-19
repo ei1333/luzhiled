@@ -8,9 +8,18 @@ category: 数学
 ## 説明
 えーこれはなんでしょうかねー
 
+形式的べき級数(Formal power series)を扱う。
+
+$P(x) = \sum_{i=0}^{\infty} c_{i} x^{i}$
+
+実用的には多項式 $P(x), Q(x)$ の最初のいくつかの項を与えたときに以下の演算を行う。基本的には演算を畳み込みに落とし込んで FFT を用いて高速化できる。
+
+* $O(n)$ : $P(x)+Q(x), P(x)-Q(x), -P(x)$
+* $O(n \log n)$ : $P(x)Q(x)$
+* $O(n \log n)$ : $\frac {1} {P(x)}$ 
+
 ## 計算量
-* 加算・減算 $O(N)$
-* 乗算・除算(逆元) $O(N \log N)$
+上に示した
 
 ## 実装例
 依存ライブラリ [Mod-Int](../math/mod-int.html) [Fast-Fourier-Transform](../math/fast-fourier-transform.html) [Arbitrary-Mod-Convolution](../math/arbitrary-mod-convolution.html)
@@ -25,4 +34,8 @@ TODO 使い方
 乗算・除算のみ
 [yukicoder No.3046 yukicoderの過去問](https://yukicoder.me/problems/no/3046)
 {% include read.html code="math/verify/yukicoder-3046.cpp" %}
+
+
+## 参考
+[Operations on Formal Power Series](https://codeforces.com/blog/entry/56422)
 
