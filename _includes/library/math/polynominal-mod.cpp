@@ -4,6 +4,7 @@ struct PolynominalMod : vector< T > {
   using P = PolynominalMod;
   static ArbitraryModConvolution< T > fft;
 
+
   P operator+(const P &r) const { return P(*this) += r; }
 
   P operator-(const P &r) const { return P(*this) -= r; }
@@ -58,6 +59,21 @@ struct PolynominalMod : vector< T > {
       nr.resize(ff.size());
       for(int i = 0; i < (k >> 1); i++) nr[i] -= ret[i] + ret[i];
       ret = -nr;
+    }
+    return ret;
+  }
+
+  P sqrt() const {
+    const int n = (int) this->size();
+    assert(n);
+    P ret({T(1)});
+    const T inv2 = T(1) / 2;
+    for(int k = 2; (k >> 1) < n; k <<= 1) {
+      P ff(min(n, k));
+      for(int i = 0; i < ff.size(); i++) ff[i] = (*this)[i];
+      ret.resize(ff.size());
+      P ns = ret.inverse() * ff;
+      for(int i = 0; i < ff.size(); i++) ret[i] = (ret[i] + ns[i]) * inv2;
     }
     return ret;
   }

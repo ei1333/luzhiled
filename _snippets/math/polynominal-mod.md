@@ -17,6 +17,7 @@ $P(x) = \sum_{i=0}^{\infty} c_{i} x^{i}$
 * $O(n)$ : $P(x)+Q(x), P(x)-Q(x), -P(x)$
 * $O(n \log n)$ : $P(x)Q(x)$
 * $O(n \log n)$ : $\frac {1} {P(x)}$ 
+* $O(n \log n)$ : $\sqrt {P(x)}$
 
 ## 計算量
 上に示した
@@ -31,9 +32,12 @@ TODO 使い方
 {% include read.html code="math/polynominal-mod.cpp" %}
 
 ## 検証
-乗算・除算のみ
-[yukicoder No.3046 yukicoderの過去問](https://yukicoder.me/problems/no/3046)
+
+[yukicoder No.3046 yukicoderの過去問](https://yukicoder.me/problems/no/3046) inverse()
 {% include read.html code="math/verify/yukicoder-3046.cpp" %}
+
+[Codeforces Round #250 (Div. 1) E - The Child and Binary Tree](https://codeforces.com/contest/438/problem/E) inverse(), sqrt()
+{% include read.html code="math/verify/codeforces-250-e.cpp" %}
 
 
 ## 参考
