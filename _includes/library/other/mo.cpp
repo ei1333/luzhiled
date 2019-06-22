@@ -7,7 +7,7 @@ struct Mo {
   vector< int > left, right, order;
   vector< bool > v;
 
-  Mo(int N, int Q) : width((int) sqrt(N)), order(Q), v(Q) {
+  Mo(int N, int Q) : width((int) sqrt(N)), order(Q), v(N) {
     iota(begin(order), end(order), 0);
   }
 
