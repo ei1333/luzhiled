@@ -1,4 +1,4 @@
-te< typename T, typename F >
+template< typename T, typename F >
 T boruvka(int N, F f) {
   vector< int > rev(N), belong(N);
   UnionFind uf(N);

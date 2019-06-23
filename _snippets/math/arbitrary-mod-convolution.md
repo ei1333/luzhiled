@@ -6,7 +6,8 @@ category: 数学
 ---
 
 ## 説明
-高速フーリエ変換による畳み込みを行う。$2^{30}$ 未満ならどの mod でもOK。それ以上の mod がでるコンテストには参加しない。
+高速フーリエ変換による任意 mod 畳み込みを行う。
+
 ## 計算量
 * $O((n + m) \log (n + m))$
 
@@ -17,7 +18,11 @@ category: 数学
 
 * multiply($a$, $b$):= 配列 $a$ と配列 $b$ を畳み込みした結果を返す。
 
+以下は mod $10^9+7$ で verified。ふつうはこっち。
 {% include read.html code="math/arbitrary-mod-convolution.cpp" %}
+
+以下は $10^{11}$ 以下の素数 mod で verified。FFT の精度を long double にすること。
+{% include read.html code="math/arbitrary-mod-convolution-long.cpp" %}
 
 ## 検証
 [AtCoder ATC_001_C 高速フーリエ変換](https://beta.atcoder.jp/contests/atc001/tasks/fft_c)

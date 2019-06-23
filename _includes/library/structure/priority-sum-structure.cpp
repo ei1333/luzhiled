@@ -1,76 +1,82 @@
-template< typename T >
+template< typename T, typename Compare = less< T >, typename RCompare = greater< T > >
 struct PrioritySumStructure {
-  static const bool INCREASE = false;
-  static const bool DECREASE = true;
 
-  bool order;
-  int k, sz;
+  size_t k;
   T sum;
-  set< pair< T, int > > add, pend;
-  map< int, T > adding, pending;
 
-  PrioritySumStructure(int k, bool order = INCREASE) : k(k), sum(0), sz(0), order(order) {}
+  priority_queue< T, vector< T >, Compare > in, d_in;
+  priority_queue< T, vector< T >, RCompare > out, d_out;
 
-  void sweep() {
-    while(sz < k && !pend.empty()) {
-      auto p = order ? --pend.end() : pend.begin();
-      sum += p->first;
-      ++sz;
-      add.emplace(*p);
-      adding.emplace(p->second, p->first);
-      pending.erase(p->second);
-      pend.erase(p);
+  PrioritySumStructure(int k) : k(k), sum(0) {}
+
+  void modify() {
+    while(in.size() - d_in.size() < k && !out.empty()) {
+      auto p = out.top();
+      out.pop();
+      if(!d_out.empty() && p == d_out.top()) {
+        d_out.pop();
+      } else {
+        sum += p;
+        in.emplace(p);
+      }
     }
-    while(sz > k) {
-      auto p = order ? add.begin() : --add.end();
-      sum -= p->first;
-      --sz;
-      pend.emplace(*p);
-      pending.emplace(p->second, p->first);
-      adding.erase(p->second);
-      add.erase(p);
+    while(in.size() - d_in.size() > k) {
+      auto p = in.top();
+      in.pop();
+      if(!d_in.empty() && p == d_in.top()) {
+        d_in.pop();
+      } else {
+        sum -= p;
+        out.emplace(p);
+      }
+    }
+    while(!d_in.empty() && in.top() == d_in.top()) {
+      in.pop();
+      d_in.pop();
     }
   }
 
-  T get_sum() {
-    if(sz < k) throw ("Get Sum Exception");
+  T query() const {
     return sum;
   }
 
-  void add_element(int k, T x) {
-    if(adding.count(k) || pending.count(k)) {
-      throw ("Add Element Exception");
-    }
-    ++sz;
-    add.emplace(x, k);
-    adding[k] = x;
+  void insert(T x) {
+    in.emplace(x);
     sum += x;
-    sweep();
+    modify();
   }
 
-  void delete_element(int k) {
-    if(pending.count(k)) {
-      pend.erase({pending[k], k});
-      pending.erase(k);
-    } else if(adding.count(k)) {
-      --sz;
-      sum -= adding[k];
-      add.erase({adding[k], k});
-      adding.erase(k);
-      sweep();
+  void erase(T x) {
+    assert(size());
+    if(!in.empty() && in.top() == x) {
+      sum -= x;
+      in.pop();
+    } else if(!in.empty() && RCompare()(in.top(), x)) {
+      sum -= x;
+      d_in.emplace(x);
     } else {
-      throw ("Delete Element Exception");
+      d_out.emplace(x);
     }
+    modify();
   }
 
-  void increment_size() {
-    ++k;
-    sweep();
+  void set_k(size_t kk) {
+    k = kk;
+    modify();
   }
 
-  void decrement_size() {
-    if(k == 0) throw ("Decrement Size Exception");
-    --k;
-    sweep();
+  size_t get_k() const {
+    return k;
+  }
+
+  size_t size() const {
+    return in.size() + out.size() - d_in.size() - d_out.size();
   }
 };
+
+template< typename T >
+using MaximumSum = PrioritySumStructure< T, greater< T >, less< T > >;
+
+template< typename T >
+using MinimumSum = PrioritySumStructure< T, less< T >, greater< T > >;
+

@@ -2,14 +2,14 @@ template< typename T >
 T factorial(int64_t n) {
   if(n >= T::get_mod()) return 0;
   if(n == 0) return 1;
-
-  const int sn = sqrt(n);
+ 
+  const int64_t sn = sqrt(n);
   const T sn_inv = T(1) / sn;
-
+ 
   Combination< modint > comb(sn);
   using P = vector< T >;
   ArbitraryModConvolution< modint > fft;
-
+ 
   auto shift = [&](const P &f, T dx) {
     int n = (int) f.size();
     T a = dx * sn_inv;
@@ -47,7 +47,7 @@ T factorial(int64_t n) {
   };
   function< P(int) > rec = [&](int64_t n) {
     if(n == 1) return P({1, 1 + sn});
-    int nh = n >> 1;
+    int64_t nh = n >> 1;
     auto a1 = rec(nh);
     auto a2 = shift(a1, nh);
     auto b1 = shift(a1, sn * nh);
