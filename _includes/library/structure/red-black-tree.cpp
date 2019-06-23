@@ -226,11 +226,11 @@ struct RedBlackTree {
   }
 
   void set_element(Node *&t, int k, const D &x) {
+    t = propagate(t);
     if(!t->l) {
       t->key = t->sum = x;
       return;
     }
-    t = propagate(t);
     if(k < count(t->l)) set_element(t->l, k, x);
     else set_element(t->r, k - count(t->l), x);
     t = update(t);

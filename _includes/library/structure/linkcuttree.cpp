@@ -155,6 +155,7 @@ struct LinkCutTree {
   }
 
   Node *lca(Node *u, Node *v) {
+    if(get_root(u) != get_root(v)) return nullptr;
     expose(u);
     return expose(v);
   }
@@ -196,6 +197,7 @@ struct LinkCutTree {
   }
 
   Node *get_root(Node *x) {
+    expose(x);
     while(x->l) {
       push(x);
       x = x->l;
