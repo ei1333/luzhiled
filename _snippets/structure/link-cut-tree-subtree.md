@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 部分木クエリを扱うLink-Cut木(Link-Cut-Tree-Subtree)
+title: Link-Cut木 部分木クエリ(Link-Cut-Tree-Subtree)
 date: 2019-07-06
 category: データ構造
 ---
@@ -33,6 +33,13 @@ category: データ構造
 [技術室奥プログラミングコンテスト J - 仕事をしよう！ (Working!)](https://atcoder.jp/contests/tkppc/tasks/tkppc2015_j)  
 TLEします！！！！　抽象化せずにベタで書くと間に合います　たぶん単位元を返すところが重そう
 {% include read.html  code="structure/verify/atcoder-tkppc-2015-j.cpp" %}
+
+[AOJ GRL_5_A 木の直径](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_A&lang=jp)
+
+あたまこわれる　最遠点クエリの情報+直径のmaxをもたせる
+
+{% include read.html  code="structure/verify/aoj-grl-5-a.cpp" %}
+
 
 ## 参考
 [Link Cut Treeで部分木の情報を管理する - beet's soil](http://beet-aizu.hatenablog.com/entry/2019/06/08/221833)
