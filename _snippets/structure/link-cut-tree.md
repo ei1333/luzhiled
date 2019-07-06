@@ -25,7 +25,7 @@ category: データ構造
 * get_kth($x$, $k$) := $x$ から根までのパスに出現する頂点を並べたときの $k$ 番目の頂点を返す(0-indexed, つまり $x$ が $0$ 番目)。
 * get_root($x$):= $x$ の根を返す。
 
-{% include read.html  code="structure/linkcuttree.cpp" %}
+{% include read.html  code="structure/link-cut-tree.cpp" %}
 
 ## 検証
 [AOJ 2450 Do use segment tree](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2450)
