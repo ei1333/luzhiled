@@ -12,7 +12,7 @@ ul li p {
 
 ぽよぽよぷりん
 
-ここにのっているソースコードは自由に使って頂いて構いませんが、バグっている可能性があります。よく使いそうなライブラリほど信頼度が高めです。ソースコードは [ei1333/library - GitHub](https://github.com/ei1333/library) に対応しています。
+ここにのっているソースコードは自由に使って頂いて構いませんが、バグっている可能性があります。よく使いそうなライブラリほど信頼度が高めです。
 
 {% assign mydocs = site.snippets | group_by: 'category' %}
 {% for cat in mydocs %}
