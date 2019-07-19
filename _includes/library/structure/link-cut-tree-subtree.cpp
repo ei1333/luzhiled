@@ -1,141 +1,158 @@
-template< typename C, typename D >
+template< typename SUM, typename KEY >
 struct LinkCutTreeSubtree {
-  using LCT = LinkCutTreeSubtree;
-
-  LCT *l, *r, *p;
-  C c;
-  bool rev;
-  int sz;
-
-  bool is_root() {
-    return !p || (p->l != this && p->r != this);
+ 
+  struct Node {
+    Node *l, *r, *p;
+ 
+    KEY key;
+    SUM sum;
+ 
+    bool rev;
+    int sz;
+ 
+    bool is_root() const {
+      return !p || (p->l != this && p->r != this);
+    }
+ 
+    Node(const KEY &key, const SUM &sum) :
+        key(key), sum(sum), rev(false), sz(1),
+        l(nullptr), r(nullptr), p(nullptr) {}
+  };
+ 
+  const SUM ident;
+ 
+  LinkCutTreeSubtree(const SUM &ident) : ident(ident) {}
+ 
+  Node *make_node(const KEY &key) {
+    auto ret = new Node(key, ident);
+    update(ret);
+    return ret;
   }
-
-  LinkCutTreeSubtree() = default;
-
-  LinkCutTreeSubtree(const D &v) { init(v); }
-
-  void init(const D &v) {
-    sz = 1;
-    l = r = p = nullptr;
-    rev = false;
-    c.set(v);
+ 
+  Node *set_key(Node *t, const KEY &key) {
+    expose(t);
+    t->key = key;
+    update(t);
+    return t;
   }
-
-  void toggle() {
-    swap(l, r);
-    c.reverse();
-    rev ^= true;
+ 
+  void toggle(Node *t) {
+    swap(t->l, t->r);
+    t->sum.toggle();
+    t->rev ^= true;
   }
-
-  void push() {
-    if(rev) {
-      if(l) l->toggle();
-      if(r) r->toggle();
-      rev = false;
+ 
+  void push(Node *t) {
+    if(t->rev) {
+      if(t->l) toggle(t->l);
+      if(t->r) toggle(t->r);
+      t->rev = false;
     }
   }
-
-  void update() {
-    sz = 1;
-    if(l) sz += l->sz;
-    if(r) sz += r->sz;
-    c.merge(l ? l->c : C(), r ? r->c : C());
+ 
+ 
+  void update(Node *t) {
+    t->sz = 1;
+    if(t->l) t->sz += t->l->sz;
+    if(t->r) t->sz += t->r->sz;
+    t->sum.merge(t->key, t->l ? t->l->sum : ident, t->r ? t->r->sum : ident);
   }
-
-
-  void rotr() {
-    auto *x = p, *y = x->p;
-    if((x->l = r)) r->p = x;
-    r = x, x->p = this;
-    x->update(), update();
-    if((p = y)) {
-      if(y->l == x) y->l = this;
-      if(y->r == x) y->r = this;
-      y->update();
+ 
+  void rotr(Node *t) {
+    auto *x = t->p, *y = x->p;
+    if((x->l = t->r)) t->r->p = x;
+    t->r = x, x->p = t;
+    update(x), update(t);
+    if((t->p = y)) {
+      if(y->l == x) y->l = t;
+      if(y->r == x) y->r = t;
+      update(y);
     }
   }
-
-  void rotl() {
-    auto *x = p, *y = x->p;
-    if((x->r = l)) l->p = x;
-    l = x, x->p = this;
-    x->update(), update();
-    if((p = y)) {
-      if(y->l == x) y->l = this;
-      if(y->r == x) y->r = this;
-      y->update();
+ 
+  void rotl(Node *t) {
+    auto *x = t->p, *y = x->p;
+    if((x->r = t->l)) t->l->p = x;
+    t->l = x, x->p = t;
+    update(x), update(t);
+    if((t->p = y)) {
+      if(y->l == x) y->l = t;
+      if(y->r == x) y->r = t;
+      update(y);
     }
   }
-
-  void splay() {
-    push();
-    while(!is_root()) {
-      auto *q = p;
+ 
+ 
+  void splay(Node *t) {
+    push(t);
+    while(!t->is_root()) {
+      auto *q = t->p;
       if(q->is_root()) {
-        q->push(), push();
-        if(q->l == this) rotr();
-        else rotl();
+        push(q), push(t);
+        if(q->l == t) rotr(t);
+        else rotl(t);
       } else {
         auto *r = q->p;
-        r->push(), q->push(), push();
+        push(r), push(q), push(t);
         if(r->l == q) {
-          if(q->l == this) q->rotr(), rotr();
-          else rotl(), rotr();
+          if(q->l == t) rotr(q), rotr(t);
+          else rotl(t), rotr(t);
         } else {
-          if(q->r == this) q->rotl(), rotl();
-          else rotr(), rotl();
+          if(q->r == t) rotl(q), rotl(t);
+          else rotr(t), rotl(t);
         }
       }
     }
   }
-
-  LCT *expose() {
-    LCT *rp = nullptr;
-    for(auto *cur = this; cur; cur = cur->p) {
-      cur->splay();
-      if(cur->r) cur->c.insert_light(cur->r->c);
+ 
+ 
+  Node *expose(Node *t) {
+    Node *rp = nullptr;
+    for(auto *cur = t; cur; cur = cur->p) {
+      splay(cur);
+      if(cur->r) cur->sum.add(cur->r->sum);
       cur->r = rp;
-      if(cur->r) cur->c.erase_light(cur->r->c);
-      cur->update();
+      if(cur->r) cur->sum.erase(cur->r->sum);
+      update(cur);
       rp = cur;
     }
-    splay();
+    splay(t);
     return rp;
   }
-
-  void link(LCT *parent) {
-    expose();
-    parent->expose();
-    p = parent;
-    parent->r = this;
-    parent->update();
+ 
+  void link(Node *child, Node *parent) {
+    expose(child);
+    expose(parent);
+    child->p = parent;
+    parent->r = child;
+    update(parent);
   }
-
-  void cut() {
-    expose();
-    auto *parent = l;
-    l = nullptr;
+ 
+  void cut(Node *child) {
+    expose(child);
+    auto *parent = child->l;
+    child->l = nullptr;
     parent->p = nullptr;
-    update();
+    update(child);
   }
-
-  void evert() {
-    expose();
-    toggle();
-    push();
+ 
+  void evert(Node *t) {
+    expose(t);
+    toggle(t);
+    push(t);
   }
-
-  LCT *lca(LCT *v) {
-    expose();
-    return v->expose();
+ 
+  Node *lca(Node *u, Node *v) {
+    if(get_root(u) != get_root(v)) return nullptr;
+    expose(u);
+    return expose(v);
   }
-
-  LCT *get_kth(int k) {
-    expose();
-    LCT x = this;
+ 
+ 
+  Node *get_kth(Node *x, int k) {
+    expose(x);
     while(x) {
-      x.push();
+      push(x);
       if(x->r && x->r->sz > k) {
         x = x->r;
       } else {
@@ -147,21 +164,18 @@ struct LinkCutTreeSubtree {
     }
     return nullptr;
   }
-
-  LCT *get_root() {
-    expose();
-    LCT *x = this;
+ 
+  Node *get_root(Node *x) {
+    expose(x);
     while(x->l) {
-      x->push();
+      push(x);
       x = x->l;
     }
-    x->splay();
     return x;
   }
-
-  C query() {
-    expose();
-    return c;
+ 
+  SUM &query(Node *t) {
+    expose(t);
+    return t->sum;
   }
 };
-

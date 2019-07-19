@@ -12,6 +12,9 @@ ul li p {
 
 ぽよぽよぷりん
 
+ここにのっているソースコードは自由に使って頂いて構いませんが、バグっている可能性があります。よく使いそうなライブラリほど信頼度が高めです。
+
+
 {% assign mydocs = site.snippets | group_by: 'category' %}
 {% for cat in mydocs %}
 ## {{ cat.name }}

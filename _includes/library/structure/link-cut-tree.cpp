@@ -139,6 +139,7 @@ struct LinkCutTree {
     expose(parent);
     child->p = parent;
     parent->r = child;
+    update(parent);
   }
 
   void cut(Node *child) {
@@ -146,6 +147,7 @@ struct LinkCutTree {
     auto *parent = child->l;
     child->l = nullptr;
     parent->p = nullptr;
+    update(child);
   }
 
   void evert(Node *t) {

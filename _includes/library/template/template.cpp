@@ -66,6 +66,21 @@ typename enable_if< is_class< T >::value != 0 >::type fill_v(T &t, const V &v) {
   for(auto &e : t) fill_v(e, v);
 }
 
+template< typename F >
+struct FixPoint : F {
+  FixPoint(F &&f) : F(forward< F >(f)) {}
+ 
+  template< typename... Args >
+  decltype(auto) operator()(Args &&... args) const {
+    return F::operator()(*this, forward< Args >(args)...);
+  }
+};
+ 
+template< typename F >
+inline decltype(auto) MFP(F &&f) {
+  return FixPoint< F >{forward< F >(f)};
+}
+
 int main() {
- $END$
+  $END$
 }

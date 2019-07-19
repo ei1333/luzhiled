@@ -1,63 +1,58 @@
-template< typename T >
-struct tap {
-  T key;
-
-  T sz, szsum, cashsz, cashszsum;
-
-  tap() : key(0), sz(0), szsum(0), cashsz(0), cashszsum(0) {}
-
-  void set(const T &k) {
-    sz = key = k;
-  }
-
-  void merge(const tap &parent, const tap &child) {
-    szsum = cashszsum;
-    szsum += parent.sz * parent.sz;
-    szsum += child.sz * child.sz;
-
-    sz = key;
-    sz += parent.sz;
-    sz += child.sz;
-    sz += cashsz;
-  }
-
-  void reverse() {
-  }
-
-  void insert_light(const tap &child) {
-    cashszsum += child.sz * child.sz;
-    cashsz += child.sz;
-  }
-
-  void erase_light(const tap &child) {
-    cashszsum -= child.sz * child.sz;
-    cashsz -= child.sz;
-  }
-};
-
 int main() {
+  struct tap {
+    int64 sz, szsum, cashsz, cashszsum;
+ 
+    tap() : sz(0), szsum(0), cashsz(0), cashszsum(0) {}
+ 
+ 
+    void merge(int64 key, const tap &parent, const tap &child) {
+      szsum = cashszsum;
+      szsum += parent.sz * parent.sz;
+      szsum += child.sz * child.sz;
+ 
+      sz = key;
+      sz += parent.sz;
+      sz += child.sz;
+      sz += cashsz;
+    }
+ 
+    void toggle() {
+    }
+ 
+    void add(const tap &child) {
+      cashszsum += child.sz * child.sz;
+      cashsz += child.sz;
+    }
+ 
+    void erase(const tap &child) {
+      cashszsum -= child.sz * child.sz;
+      cashsz -= child.sz;
+    }
+  } e;
+ 
   int N, M;
   cin >> N >> M;
   vector< int > C(N);
   cin >> C;
-
+ 
   using pi = pair< int64, int >;
-
-  using LCT = LinkCutTreeSubtree< tap< int64 >, int64 >;
-  vector< LCT > sub(N);
+ 
+  using LCT = LinkCutTreeSubtree< tap, int64 >;
+  LCT lct(e);
+  vector< LCT::Node * > sub(N);
   vector< map< int, vector< pair< int, int > > > > belong(N + 1);
   for(int i = 0; i < N; i++) {
     --C[i];
-    sub[i].init(1);
+    sub[i] = lct.make_node(1);
     belong[C[i]][-1].emplace_back(i, 0);
   }
-
+ 
   vector< int > parent(N + 1, -1);
   vector< int > g[400001];
-
+ 
   g[N].emplace_back(0);
-  sub.emplace_back(LCT(1));
-
+  sub.emplace_back(lct.make_node(1));
+ 
   function< void(int, int) > dfs = [&](int idx, int par) {
     parent[idx] = par;
     for(auto &to : g[idx]) {
@@ -71,13 +66,13 @@ int main() {
     --x, --y;
     g[x].emplace_back(y);
     g[y].emplace_back(x);
-    sub[y].evert();
-    sub[y].link(&sub[x]);
+    lct.evert(sub[y]);
+    lct.link(sub[y], sub[x]);
   }
-  sub[0].evert();
-  sub[0].link(&sub[N]);
+  lct.evert(sub[0]);
+  lct.link(sub[0], sub[N]);
   dfs(N, -1);
-
+ 
   for(int i = 0; i < M; i++) {
     int u, x;
     cin >> u >> x;
@@ -88,51 +83,46 @@ int main() {
       belong[x][i].emplace_back(u, 0); // set white
     }
   }
-
-
+ 
+ 
   vector< int64 > ans(M + 1);
-
-
+ 
+ 
   for(int i = 0; i < N; i++) {
-
+ 
     int last = -1;
     int64 path = 1LL * N * N;
-
+ 
     set< int > st;
-
+ 
     for(auto &vs : belong[i]) {
       ans[last + 1] += path;
       ans[vs.first + 1] -= path;
-
+ 
       for(auto &p : vs.second) {
         if(!p.second) {
           st.emplace(p.first);
-          path -= sub[p.first].get_root()->query().szsum;
-          sub[p.first].cut();
-          path += sub[parent[p.first]].get_root()->query().szsum;
-          path += sub[p.first].get_root()->query().szsum;
-
+          path -= lct.query(lct.get_root(sub[p.first])).szsum;
+          lct.cut(sub[p.first]);
+          path += lct.query(lct.get_root(sub[parent[p.first]])).szsum;
+          path += lct.query(lct.get_root(sub[p.first])).szsum;
         } else {
           st.erase(p.first);
-          path -= sub[p.first].get_root()->query().szsum;
-          path -= sub[parent[p.first]].get_root()->query().szsum;
-          sub[p.first].link(&sub[parent[p.first]]);
-          path += sub[p.first].get_root()->query().szsum;
+          path -= lct.query(lct.get_root(sub[p.first])).szsum;
+          path -= lct.query(lct.get_root(sub[parent[p.first]])).szsum;
+          lct.link(sub[p.first], sub[parent[p.first]]);
+          path += lct.query(lct.get_root(sub[p.first])).szsum;
         }
       }
       last = vs.first;
     }
     ans[last + 1] += path;
-    for(auto &p : st) sub[p].link(&sub[parent[p]]);
-
+    for(auto &p : st) lct.link(sub[p], sub[parent[p]]);
   }
-
+ 
   int64 ret = 0;
   for(int j = 0; j <= M; j++) {
     ret += ans[j];
-    cout << 1LL * N * N * N - ret << endl;
+    cout << 1LL * N * N * N - ret << "\n";
   }
-  cout << endl;
-
 }
-
