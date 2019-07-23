@@ -1,0 +1,26 @@
+---
+layout: post
+title: 最長増加部分列(Longest-Increasing-Subsequence)
+date: 2019-07-23
+category: 動的計画法
+---
+
+## 説明
+最長増加部分列(LIS)の長さを求める。
+
+$lis\[i\]$ を、現状態で長さ $i$ 以下の増加部分列を作るときの最後の要素の最小値と定義する。このとき $lis\[i\]$ は常に単調増加になっている。
+
+数列の要素を左からみる。二分探索で $lis\[k\]$ が現在の要素以下(未満) となる最大の $k$ を求め, $lis\[k+1\]$ を現在の要素に書き換えることを繰り返すことで LIS を求めることができる。
+
+ここでは実装しない(←実装しなさーい！)が別のアルゴリズムとして, $lis\[i\]$ を現状態で最後の要素が値 $i$ の増加部分列を作るときの最長の長さと定義する方法も存在する。数列の要素を左から見ていって, 現在の値の要素以下(未満) で最大の $lis\[k\] + 1$ を求めることで更新出来て, これは BIT や セグメント木を使って効率的に求めることができる。
+
+## 計算量
+* $O(N \log N)$
+
+## 実装例
+* longest_increasing_subsequence($a$, $strict$): 数列 $a$ の最長増加部分列の長さを求める。$strict = true$ のとき狭義(厳密に増加する列), $false$ のとき広義で求める。
+{% include read.html  code="dp/longest-increasing-subsequence.cpp" %}
+
+## 検証
+[AOJ DPL_1_D 最長増加部分列](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_1_D&lang=jp)
+{% include read.html code="dp/verify/aoj-dpl-1-d.cpp" %}
