@@ -18,9 +18,9 @@ exist は子供以下に追加された文字列の個数, accept はそのノ�
 
 * Trie< char_size, margin >(): 文字列の種類数 char_size, 開始文字が margin のトライ木を作成する。
 * add($S$): 文字列 $S$ をトライ木に追加する
-* query($S$, $F$): 文字列 $S$ のプレフィックスに一致する文字列を検索する。一致した文字列ごとに関数 $F$ が呼び出される。
-* size(): 追加された文字列の数を返す
-* nodesize(): ノード数を返す
+* query($S$, $f$): 文字列 $S$ のプレフィックスに一致する文字列を検索する。一致した文字列ごとに関数 $f$ が呼び出される。
+* size(): ノード数を返す
+* count(): 存在する文字列の個数を返す
 
 {% include read.html  code="structure/trie.cpp" %}
 
