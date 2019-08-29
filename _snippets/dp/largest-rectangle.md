@@ -17,5 +17,5 @@ category: 動的計画法
 ## 検証
 
 [AOJ DPL_3_C ヒストグラムの中の最大長方形](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_3_C&lang=jp)
-{% include read.html code="dp/verify/aoj-dpl-3-c.cpp" %}
+{% include read.html code="dp/verify/aoj-dpl-3-c.test.cpp" %}
 

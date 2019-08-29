@@ -20,4 +20,4 @@ tags: 直径
 ## 検証
 
 [AOJ GRL_5_A 木の直径](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_A&lang=jp)
-{% include read.html code="tree/verify/aoj-grl-5-a.cpp" %}
+{% include read.html code="tree/verify/aoj-grl-5-a.test.cpp" %}

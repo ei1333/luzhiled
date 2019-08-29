@@ -20,4 +20,4 @@ $ax+by=\gcd(a,b)$ なる $x,y$ をユークリッドの互除法の過程から�
 ## 検証
 
 [AOJ NTL_1_E 拡張ユークリッドの互除法](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_E&lang=jp)
-{% include read.html code="math/verify/aoj-ntl-1-e.cpp" %}
+{% include read.html code="math/verify/aoj-ntl-1-e.test.cpp" %}

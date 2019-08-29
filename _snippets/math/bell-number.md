@@ -25,4 +25,4 @@ category: 数学
 ## 検証
 [AOJ DPL_5_G ボールと箱 7](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_5_G&lang=jp)
 
-{% include read.html code="math/verify/aoj-dpl-5-g.cpp" %}
+{% include read.html code="math/verify/aoj-dpl-5-g.test.cpp" %}

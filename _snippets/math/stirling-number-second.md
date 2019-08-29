@@ -29,4 +29,4 @@ $\\{ {n \atop k} \\} = { \frac {1}{k!} }  \sum_{i=0}^{k} {(-1)^{k-i} ({k \atop i
 ## 検証
 [AOJ DPL_5_I ボールと箱 9](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_5_I&lang=jp)
 
-{% include read.html code="math/verify/aoj-dpl-5-i.cpp" %}
+{% include read.html code="math/verify/aoj-dpl-5-i.test.cpp" %}

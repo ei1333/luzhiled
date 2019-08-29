@@ -23,4 +23,4 @@ tags: 強連結成分分解
 ## 検証
 
 [AOJ GRL_3_C 強連結成分分解](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_C&lang=jp)
-{% include read.html code="graph/verify/aoj-grl-3-c.cpp" %}
+{% include read.html code="graph/verify/aoj-grl-3-c.test.cpp" %}

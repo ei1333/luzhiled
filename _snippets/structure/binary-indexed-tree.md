@@ -22,4 +22,4 @@ Fenwick Tree とも呼ばれる。数列に対し, ある要素に値を加え�
 ## 検証
 
 [AOJ DSL_2_B Range Sum Query](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_B&lang=jp)
-{% include read.html code="structure/verify/aoj-dsl-2-b.cpp" %}
+{% include read.html code="structure/verify/aoj-dsl-2-b.test.cpp" %}

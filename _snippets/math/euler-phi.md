@@ -25,4 +25,4 @@ $\phi(n)=n\displaystyle\prod_{i=1}^k(1-\dfrac{1}{p_i})$ (ただし $p_i$ は $n$
 ## 検証
 
 [AOJ NTL_1_D オイラーのφ関数](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_D&lang=jp)
-{% include read.html code="math/verify/aoj-ntl-1-d.cpp" %}
+{% include read.html code="math/verify/aoj-ntl-1-d.test.cpp" %}

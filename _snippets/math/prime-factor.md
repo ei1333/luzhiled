@@ -21,4 +21,4 @@ tags: 素因数分解
 ## 検証
 
 [AOJ NTL_1_A 素因数分解](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_A&lang=jp)
-{% include read.html code="math/verify/aoj-ntl-1-a.cpp" %}
+{% include read.html code="math/verify/aoj-ntl-1-a.test.cpp" %}

@@ -28,4 +28,4 @@ tags: 二部グラフの最大マッチング
 ## 検証
 
 [AOJ GRL_7_A 2部マッチング](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_7_A&lang=jp)
-{% include read.html code="graph/verify/aoj-grl-7-a.cpp" %}
+{% include read.html code="graph/verify/aoj-grl-7-a.test.cpp" %}

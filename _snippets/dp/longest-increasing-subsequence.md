@@ -23,4 +23,4 @@ $lis\[i\]$ を、現状態で長さ $i$ 以下の増加部分列を作るとき�
 
 ## 検証
 [AOJ DPL_1_D 最長増加部分列](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_1_D&lang=jp)
-{% include read.html code="dp/verify/aoj-dpl-1-d.cpp" %}
+{% include read.html code="dp/verify/aoj-dpl-1-d.test.cpp" %}

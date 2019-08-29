@@ -20,9 +20,9 @@ tags: 最小共通祖先
 * build():= 構築する。
 * query($u$, $v$):= 頂点 $u$ と $v$ の最小共通祖先を返す。
 
-{% include read.html code="tree/doubling-lower-common-ancestor.cpp" %}
+{% include read.html code="tree/doubling-lowest-common-ancestor.cpp" %}
 
 ## 検証
 
 [AOJ GRL_5_C LCA: Lowest Common Ancestor](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_C&lang=jp)
-{% include read.html code="tree/verify/aoj-grl-5-c.cpp" %}
+{% include read.html code="tree/verify/aoj-grl-5-c.test.cpp" %}

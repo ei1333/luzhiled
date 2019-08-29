@@ -20,5 +20,5 @@ category: 数学
 ## 検証
 [AOJ DPL_5_J ボールと箱 10](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_5_J&lang=jp)
 
-{% include read.html code="math/verify/aoj-dpl-5-j.cpp" %}
+{% include read.html code="math/verify/aoj-dpl-5-j.test.cpp" %}
 

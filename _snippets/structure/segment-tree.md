@@ -32,7 +32,7 @@ category: データ構造
 ## 検証
 [AOJ DSL_2_A Range Minimum Query (RMQ)](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_A&lang=jp)
 
-{% include read.html  code="structure/verify/aoj-dsl-2-a.cpp" %}
+{% include read.html  code="structure/verify/aoj-dsl-2-a.test.cpp" %}
 
 ## 応用 1: 遅延評価
 

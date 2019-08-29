@@ -27,7 +27,7 @@ category: グラフ
 ## 検証
 
 [AOJ GRL_3_A 関節点](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_A)
-{% include read.html code="graph/verify/aoj-grl-3-a.cpp" %}
+{% include read.html code="graph/verify/aoj-grl-3-a.test.cpp" %}
 
 [AOJ GRL_3_B 橋](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_B)
-{% include read.html code="graph/verify/aoj-grl-3-b.cpp" %}
+{% include read.html code="graph/verify/aoj-grl-3-b.test.cpp" %}

@@ -55,5 +55,5 @@ struct Doubling
 
 ダブリングを用いたLCAも同じような二分探索をしている。まず頂点 $u, v$ のLCAを求める。ここで $d_i$ を頂点 $i$ の深さとし, $d_u \le d_v$ を仮定する($d_u \gt d_v$ のときは swap すればよい)。まず $d_v$ を $d_v - d_u$ 個だけ親に遡らせて深さを合わせる。ここで $d_v$ が $d_u$ と一致したらそれが LCA。それ以外のときは, 上位bit から $u, v$ 双方の $2^k$ 先の親が異なれば共に遡ることを繰り返して, 双方の親ではない直前の頂点を求める。するとその親がLCAとなる。
 
-{% include read.html code="tree/doubling-lower-common-ancestor.cpp" %}
+{% include read.html code="tree/doubling-lowest-common-ancestor.cpp" %}
 

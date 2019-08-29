@@ -21,5 +21,5 @@ tags: 素数
 ## 検証
 [AOJ ALDS_1_1_C 素数](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_1_C&lang=jp)
 
-{% include read.html code="math/verify/aoj-alds-1-1-c-2.cpp" %}
+{% include read.html code="math/verify/aoj-alds-1-1-c-2.test.cpp" %}
 

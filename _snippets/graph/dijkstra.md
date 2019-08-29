@@ -22,4 +22,4 @@ tags: 単一始点最短路
 ## 検証
 
 [AOJ GRL_1_A 単一始点最短経路](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_A&lang=jp)
-{% include read.html code="graph/verify/aoj-grl-1-a.cpp" %}
+{% include read.html code="graph/verify/aoj-grl-1-a.test.cpp" %}

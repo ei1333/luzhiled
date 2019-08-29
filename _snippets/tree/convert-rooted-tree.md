@@ -14,4 +14,4 @@ category: 木
 ## 実装例
 * convert_rooted_tree($g$, $r=0$):= 木 $g$ を根 $r$ から遠ざかる辺のみからなる根付き木に変換したものを返す
 
-{% include read.html code="tree/convert_rooted_tree.cpp" %}
+{% include read.html code="tree/convert-rooted-tree.cpp" %}

@@ -25,4 +25,4 @@ tags: 最小全域有向木
 ## 検証
 
 [AOJ GRL_2_A 最小全域有向木](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_B&lang=jp)
-{% include read.html code="graph/verify/aoj-grl-2-b.cpp" %}
+{% include read.html code="graph/verify/aoj-grl-2-b.test.cpp" %}

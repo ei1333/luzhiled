@@ -21,4 +21,4 @@ tags: べき乗
 ## 検証
 
 [AOJ NTL_1_B べき乗](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_B&lang=jp)
-{% include read.html code="math/verify/aoj-ntl-1-b.cpp" %}
+{% include read.html code="math/verify/aoj-ntl-1-b.test.cpp" %}

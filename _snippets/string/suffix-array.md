@@ -46,4 +46,4 @@ tags: 接尾辞配列
 
 [AOJ ALDS_1_14_D 文字列検索](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_14_D&lang=jp)
 
-{% include read.html code="string/verify/aoj-alds-1-14-d.cpp" %}
+{% include read.html code="string/verify/aoj-alds-1-14-d.test.cpp" %}

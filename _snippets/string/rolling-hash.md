@@ -27,4 +27,4 @@ tags: ハッシュ
 
 [AOJ ALDS_1_14_B 文字列検索](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_14_B&lang=jp)
 
-{% include read.html code="string/verify/aoj-alds-1-14-b.cpp" %}
+{% include read.html code="string/verify/aoj-alds-1-14-b.test.cpp" %}

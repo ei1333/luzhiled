@@ -27,7 +27,7 @@ TODO: 説明
 ## 検証
 
 [AOJ GRL_5_C LCA: Lowest Common Ancestor](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_C&lang=jp)
-{% include read.html code="tree/verify/aoj-grl-5-c-2.cpp" %}
+{% include read.html code="tree/verify/aoj-grl-5-c-2.test.cpp" %}
 
 [AOJ 2450 Do use segment tree](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2450)
 {% include read.html code="tree/verify/aoj-2450.cpp" %}

@@ -25,4 +25,4 @@ tags: 最大流
 ## 検証
 
 [AOJ GRL_6_A 最大流](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_6_A&lang=jp)
-{% include read.html code="graph/verify/aoj-grl-6-a.cpp" %}
+{% include read.html code="graph/verify/aoj-grl-6-a.test.cpp" %}

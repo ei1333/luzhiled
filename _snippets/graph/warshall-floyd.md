@@ -21,4 +21,4 @@ tags: 全点対間最短路
 ## 検証
 
 [AOJ GRL_1_C 全点対間最短経路](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_C&lang=jp)
-{% include read.html code="graph/verify/aoj-grl-1-c.cpp" %}
+{% include read.html code="graph/verify/aoj-grl-1-c.test.cpp" %}

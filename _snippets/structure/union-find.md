@@ -24,7 +24,7 @@ $\alpha$ はアッカーマンの逆関数。
 ## 検証
 
 [AOJ DSL_1_A 互いに素な集合](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_1_A&lang=jp)
-{% include read.html code="structure/verify/aoj-dsl-1-a.cpp" %}
+{% include read.html code="structure/verify/aoj-dsl-1-a.test.cpp" %}
 
 ## 応用1: 2部グラフの頂点彩色
 Union-Find を用いると $2$ 部グラフ判定とその副作用として彩色が可能。頂点を倍長して偶奇に分ける。隣接頂点を同じ色にするときは, $\mathrm{unite}(u, v)$ と $\mathrm{unite}(u+N, v+N)$, 異なる色にするときは $\mathrm{unite}(u+N, v)$ と $\mathrm{unite}(u, v+N)$ をする。
@@ -56,4 +56,4 @@ $t$ 番目のクエリを処理した時点における頂点 $x$ が含まれ�
 {% include read.html  code="structure/weighted-union-find.cpp" %}
 
 [AOJ DSL_1_B 重み付きUnion Find木](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_1_B&lang=jp)
-{% include read.html code="structure/verify/aoj-dsl-1-b.cpp" %}
+{% include read.html code="structure/verify/aoj-dsl-1-b.test.cpp" %}
