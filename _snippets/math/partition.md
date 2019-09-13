@@ -8,7 +8,7 @@ category: 数学
 ## 説明
 $n$ を順序を区別せずに自然数の和に分ける場合の数を $n$ の分割数 $p(n)$ と呼ぶ。
 
-例えば $p(1) = 1$ ($1$), $p(2) = 2$ ($2, 1+1$), $p(3) = 3$ ($3, 2+1, 1+1+1$)
+例えば $p(0) = 1$, $p(1) = 1$ ($1$), $p(2) = 2$ ($2, 1+1$), $p(3) = 3$ ($3, 2+1, 1+1+1$)
  
 分割数の母関数は次のとおりである。
 
@@ -28,7 +28,7 @@ $ \displaystyle {\prod_{k=1}^{\infty} {(1 - t^k)} = 1 + \sum_{k=1}^{\infty} (-1)
 ## 実装例
 依存ライブラリ [Polynominal-Mod](../math/polynominal-mod.html)
 
-* partition($n$): $[0, n]$ の分割数を返す。便宜上 $p(0)=1$ としている。
+* partition($n$): $[0, n]$ の分割数を返す。
 
 {% include read.html  code="math/partition.cpp" %}
 
