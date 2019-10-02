@@ -23,7 +23,7 @@ category: 数学
 ## 応用 1: mod 上でのFFT
 mod 上でのFFTによる畳込みを行う。長さ $n$ のFFTを行うとき mod の原子 $n$ 乗根が必要になる。よく使いそうな素数と原子根のペアとして 周期 $2^{21}$ の $(1012924417, 5), (924844033, 5)$ などがある。
 
-* Multiply($A$, $B$):= 配列 $A$ と配列 $B$ を畳み込みした結果を返す。
+* multiply($A$, $B$):= 配列 $A$ と配列 $B$ を畳み込みした結果を返す。
 {% include read.html code="math/number-theoretic-transform.cpp" %}
 
 [AtCoder ATC_001_C 高速フーリエ変換](https://beta.atcoder.jp/contests/atc001/tasks/fft_c)

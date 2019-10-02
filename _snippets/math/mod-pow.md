@@ -1,7 +1,7 @@
 ---
 layout: post
-title: べき乗(Power)
-date: 2018-04-06
+title: べき乗(Mod-Pow)
+date: 2019-10-03
 category: 数学
 tags: べき乗
 ---
@@ -16,7 +16,7 @@ tags: べき乗
 
 * power($x$, $n$, $mod$):= $x^n$ を $mod$ で割った余りで返す。
 
-{% include read.html  code="math/power.cpp" %}
+{% include read.html  code="math/mod-pow.cpp" %}
 
 ## 検証
 

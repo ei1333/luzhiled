@@ -1,7 +1,7 @@
 ---
 layout: post
-title: 多項式mod(Polynominal-Mod)
-date: 2019-06-18
+title: 形式的冪級数(Formal-Power-Series)
+date: 2019-10-03
 category: 数学
 ---
 
@@ -14,22 +14,25 @@ $P(x) = \sum_{i=0}^{\infty} c_{i} x^{i}$
 
 実用的には多項式 $P(x), Q(x)$ の最初のいくつかの項を与えたときに以下の演算を行う。基本的には演算を畳み込みに落とし込んで FFT を用いて高速化できる。
 
-* $O(n)$ : $P(x)+Q(x), P(x)-Q(x), -P(x)$
+* $O(n)$ : $P(x)+Q(x), P(x)-Q(x), -P(x), P'(x), \int P(x) dx, kP(x)$
 * $O(n \log n)$ : $P(x)Q(x)$
 * $O(n \log n)$ : $\frac {1} {P(x)}$ 
 * $O(n \log n)$ : $\sqrt {P(x)}$
+* $O(n \log n)$ : $\exp(P(x))$
+* $O(n \log n)$ : $log(P(x)) = \int \frac {P'(x)} {P(x)}$
+* $O(n \log n)$ : $P(x)^{k} = \exp(k \log P(x))$
 
 ## 計算量
 上に示した
 
 ## 実装例
-依存ライブラリ [Mod-Int](../math/mod-int.html) [Fast-Fourier-Transform](../math/fast-fourier-transform.html) [Arbitrary-Mod-Convolution](../math/arbitrary-mod-convolution.html)
+依存ライブラリ [Mod-Int](../math/mod-int.html)
 
 テンプレート引数としてMod-Intが渡されることを想定している。
 
 TODO 使い方
 
-{% include read.html code="math/polynominal-mod.cpp" %}
+{% include read.html code="math/formal-power-series.cpp" %}
 
 ## 検証
 

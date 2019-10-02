@@ -14,3 +14,8 @@ mod M での四則演算を行う構造体である。
 
 ## 実装例
 {% include read.html  code="math/mod-int.cpp" %}
+
+## 任意Mod-Int
+その型を使う前に ArbitraryModInt::set_mod($md$) をすること.
+
+{% include read.html  code="math/arbitrary-mod-int.cpp" %} 
