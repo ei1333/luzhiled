@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 離散対数問題(Mod-Log)
-date: 2019-05-20
+date: 2019-10-25
 category: 数学
 ---
 
@@ -9,7 +9,7 @@ category: 数学
 与えられた $a, b, p$ に対し $a^x \equiv b \pmod p$ を満たす非負整数 $x$ の最小値を求める。
 
 ## 計算量
-* $O(\sqrt p \log p)$
+* $O(\sqrt p)$
 
 ## 実装例
 
