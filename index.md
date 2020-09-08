@@ -17,6 +17,7 @@ ul li p {
 
 <blockquote class="twitter-tweet"><p lang="ja" dir="ltr">有名事実なんですけど、Luzhiled&#39;s memoは最新じゃない(理由:うしですら更新できなくなっているため)ので説明文としての価値があるものだと思った方がよさそう</p>&mdash; 年金 レジ (@Luzhiled) <a href="https://twitter.com/Luzhiled/status/1303288370685067265?ref_src=twsrc%5Etfw">September 8, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+！！！最新はこちら！！！！　[Luzhiled's Library](https://ei1333.github.io/library/)
 
 {% assign mydocs = site.snippets | group_by: 'category' %}
 {% for cat in mydocs %}
